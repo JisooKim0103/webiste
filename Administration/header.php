@@ -1,11 +1,11 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-light static-top">
     <div class="container">
-      <a class="navbar-brand text-danger" href="index.php" >
-      <img src = "https://eac.edu.ph/wp-content/uploads/2018/10/emblem.png" height="50"/>
-      <b>EAC Outreach Admins</b>
+      <a class="navbar-brand text-info" href="index.php" >
+      <img src = "http://southeastern.com.ph/img/logo.png" height="50"/>
+      <b>SEC School Management Admin</b>
       </a>
-      <button class="navbar-toggler bg-danger" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -22,12 +22,6 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="document.php"><i class="fas fa-sitemap"></i>&nbsp;Documents</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="document_template.php"><i class="far fa-file-alt"></i>&nbsp;Templates</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="backups.php"><i class="far fa-file-alt"></i>&nbsp;Backup</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="my_account.php"><i class="fas fa-user-cog"></i>&nbsp;Profile</a>

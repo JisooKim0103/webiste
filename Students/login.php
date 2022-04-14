@@ -25,7 +25,7 @@ include("../db/database.php");
       <div class="row">
        <div class = "col-md-4"></div>
        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-         <h1 class="text-danger text-center"><img src = "https://eac.edu.ph/wp-content/uploads/2018/10/emblem.png" height="50"/>Administration Portal</h1><hr/>
+         <h1 class="text-danger text-center"><img src = "http://southeastern.com.ph/img/logo.png" height="50"/>Student Portal</h1><hr/>
          <form method="POST" class="form-group">
          <table>
          <tr>

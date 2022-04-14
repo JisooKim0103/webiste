@@ -2,8 +2,8 @@
 <nav class="navbar navbar-expand-lg bg-light static-top">
     <div class="container">
       <a class="navbar-brand text-danger" href="index.php" >
-      <img src = "https://eac.edu.ph/wp-content/uploads/2018/10/emblem.png" height="50"/>
-      <b>EAC Outreach Admins</b>
+      <img src = "http://southeastern.com.ph/img/logo.png" height="50"/>
+      <b>SEC Faculty</b>
       </a>
       <button class="navbar-toggler bg-danger" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

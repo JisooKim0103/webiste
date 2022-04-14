@@ -11,7 +11,7 @@ include("../db/database.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMIS - Student Login</title>
+    <title>SEC - Student Login</title>
       <link rel="stylesheet" href="../css/bootstrap.min.css">
       <link href="../css/general.css" rel="stylesheet">
       <style>
@@ -25,7 +25,7 @@ include("../db/database.php");
       <div class="row">
        <div class = "col-md-4"></div>
        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-         <h1 class="text-danger text-center"><img src = "https://eac.edu.ph/wp-content/uploads/2018/10/emblem.png" height="50"/>Administration Portal</h1><hr/>
+         <h1 class="text-danger text-center"><img src = "http://southeastern.com.ph/img/logo.png" height="50"/>Faculty Portal</h1><hr/>
          <form method="POST" class="form-group">
          <table>
          <tr>
@@ -33,7 +33,7 @@ include("../db/database.php");
             <th></th>
          </tr>
             <tr>
-               <td>Student ID</td>
+               <td>Faculty ID</td>
                <td><input type="text" name="loginID" class="form-control mb-5 mt-5 ml-5" required="true"/></td>
             </tr>  
             <tr>
