@@ -39,15 +39,15 @@
         <input type="text" name="FirstName" class="form-control" placeholder="First Name" style="width:60%;" required/> </br>
         <input type="text" name="MiddleName" class="form-control" placeholder="Middle Name" style="width:60%;"/> </br>
         <input type="text" name="LastName" class="form-control" placeholder="Last Name" style="width:60%;" required/> </br>
-        <input type="email" name="UserName" class="form-control" placeholder="EAC email address" style="width:60%;" required/> </br>
+        <input type="email" name="UserName" class="form-control" placeholder="SEC email address" style="width:60%;" required/> </br>
         <select name = "cmbDepartment" required = "true" class = "form-control"  style="width:60%;">
         <option value = "">Select Department</option>
         <?php
-          $statement = $connection->prepare("SELECT * from department;");
+          $statement = $connection->prepare("SELECT * from program;");
           $statement->execute();
           foreach($statement as $row)
           {
-            echo "<option value = '".$row['DepartmentID']."'>".$row['DepartmentName']."</option>";
+            echo "<option value = '".$row['program_id']."'>".$row['program_code']."</option>";
           }
         ?>
         </select><br/>
@@ -76,19 +76,17 @@
         </thead>
           <tbody>
             <?php
-              $statement = $connection->prepare("SELECT * from facultyusers
-              inner join department on facultyusers.department_id = department.DepartmentID 
-              where usertype = 0;");
-              $statement->execute();
-              foreach($statement as $row)
-              {
-                echo "<tr>";
-                echo "<td>".$row['FirstName']." ".$row['MiddleName']." ".$row['LastName']."</td>";
-                echo "<td>".$row['UserName']."</td>";
-                echo "<td>".$row['DepartmentName']."</td>";
-                echo "<td><a href='student_info.php?userid=".$row['UserName']."' target='_blank'>View Info</a></td>";
-                echo "</tr>";
-              }
+              // $statement = $connection->prepare("SELECT * FROM `student_credential`;");
+              // $statement->execute();
+              // foreach($statement as $row)
+              // {
+              //   echo "<tr>";
+              //   echo "<td>".$row['FirstName']." ".$row['MiddleName']." ".$row['LastName']."</td>";
+              //   echo "<td>".$row['UserName']."</td>";
+              //   echo "<td>".$row['DepartmentName']."</td>";
+              //   echo "<td><a href='student_info.php?userid=".$row['UserName']."' target='_blank'>View Info</a></td>";
+              //   echo "</tr>";
+              // }
             ?>
           </tbody>
         </table>
@@ -117,14 +115,9 @@ if(isset($_POST['btnRegisterFaculty']))
   $UserName = $_POST['UserName'];
   $Password1 = $_POST['Password1'];
   $Password2 = $_POST['Password2'];
-  #Signature File
-  // $sig_file_name = $_FILES['signature_file']['name'];
-  // $sig_file_temp_loc = $_FILES['signature_file']['tmp_name'];
-  // $sig_file_type = $_FILES['signature_file']['type'];
-  // $sig_file_destination = "../user_signatures/".$sig_file_name;
 
   try{
-    if(strpos($UserName, '@eac.edu.ph') !== false)
+    if(strpos($UserName, '@sec.edu.ph') !== false)
     {
       if($Password1==$Password2)
       {
@@ -149,7 +142,7 @@ if(isset($_POST['btnRegisterFaculty']))
        echo "<script>alert(`Password does not match!`);</script>";
       }
     }else{
-      echo "<script>alert(`Email address isn't part of the EAC domain!`);</script>";
+      echo "<script>alert(`Email address isn't part of the SEC domain!`);</script>";
     }
    
   }catch(PDOException $e)
