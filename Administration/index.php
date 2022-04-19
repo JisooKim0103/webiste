@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DMIS - Dashboard</title>
+  <title>SEC - Dashboard</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
   <div class="container-fluid">
 
   <div class = "text-center">
-<img src = "../assets/eacimg.jpg" style="max-width:100%" class = "img-fluid rounded"/>
+<img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" class = "img-fluid rounded"/>
 </div>
   
 
@@ -38,25 +38,25 @@
         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <!-- <h2 class="text-success"> </h2> -->
         <hr>
-        <h3 class="text-center text-success"><a href="document.php" target="_blank" class = "btn btn-light">
+        <h3 class="text-center text-success"><a href="events.php" target="_blank" class = "btn btn-light">
         <?php
-        $query = "SELECT COUNT(*) FROM filesubmissions;";
+        $query = "SELECT COUNT(*) FROM `schoolevent` where `event_date` >= curdate();";
         $statement = $connection->query($query);
         echo $statement->fetchColumn();
         ?>
-        <i class="fas fa-file-alt"></i>&nbsp;Document Submission(s)
+        <i class="fas fa-calendar-alt"></i>&nbsp;Event(s)
         </a></h3>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <!-- <h2 class="text-warning"></h2> -->
         <hr>
-        <h3 class="text-center text-success"><a href="backups.php" target="_blank" class = "btn btn-light">
+        <h3 class="text-center text-success"><a href="" target="_blank" class = "btn btn-light">
         <?php
-        $query = "SELECT COUNT(*) FROM activitylogs where activity = 'FILE BACKUP' and resolve = '';";
-        $statement = $connection->query($query);
-        echo $statement->fetchColumn();
+        // $query = "SELECT COUNT(*) FROM activitylogs where activity = 'FILE BACKUP' and resolve = '';";
+        // $statement = $connection->query($query);
+        // echo $statement->fetchColumn();
         ?>
-        <i class="far fa-question-circle"></i>&nbsp;Backup Request(s)
+        <i class="far fa-question-circle"></i>&nbsp;Do not click
         </a></h3>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">

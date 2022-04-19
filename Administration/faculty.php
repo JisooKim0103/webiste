@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DMIS - Faculty Management</title>
+  <title>SEC - Faculty Management</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +36,7 @@
    
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Teacher</h2>
+        <input type="text" name="SchoolID" class="form-control" placeholder="School ID" style="width:60%;" required/> </br>
         <input type="text" name="FirstName" class="form-control" placeholder="First Name" style="width:60%;" required/> </br>
         <input type="text" name="MiddleName" class="form-control" placeholder="Middle Name" style="width:60%;"/> </br>
         <input type="text" name="LastName" class="form-control" placeholder="Last Name" style="width:60%;" required/> </br>
@@ -57,7 +58,7 @@
         <input type="password" name="Password2" class="form-control" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
         title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" placeholder="Re-enter Password" style="width:60%;"required/> </br>
         <button type="submit" name="btnRegisterFaculty" style="width:60%;" class="btn btn-info">
-        <i class="fas fa-user-plus"></i>&nbsp;Add User
+        <i class="fas fa-user-plus"></i>&nbsp;Add Faculty
         </button>
       </form>
     </div>
@@ -68,24 +69,24 @@
         <thead>
         <tr>
           <th>Faculty Name</th>
-          <th>Account ID</th>
           <th>Department</th>
           <th>Actions</th>
           </tr>
         </thead>
           <tbody>
             <?php
-              // $statement = $connection->prepare("SELECT * FROM ``;");
-              // $statement->execute();
-              // foreach($statement as $row)
-              // {
-              //   echo "<tr>";
-              //   echo "<td>".$row['FirstName']." ".$row['MiddleName']." ".$row['LastName']."</td>";
-              //   echo "<td>".$row['UserName']."</td>";
-              //   echo "<td>".$row['DepartmentName']."</td>";
-              //   echo "<td><a href='faculty_info.php?userid=".$row['UserName']."' target='_blank'>View Info</a></td>";
-              //   echo "</tr>";
-              // }
+              $statement = $connection->prepare("SELECT faculty.faculty_id, faculty.firstname, faculty.lastname, faculty.middlename, program.program_code as `DepartmentName` FROM `faculty` 
+              inner join program
+              on faculty.department = program.program_id;");
+              $statement->execute();
+              foreach($statement as $row)
+              {
+                echo "<tr>";
+                echo "<td>".$row['firstname']." ".$row['middlename']." ".$row['lastname']."</td>";
+                echo "<td>".$row['DepartmentName']."</td>";
+                echo "<td><a href='faculty_info.php?userid=".$row['faculty_id']."' target='_blank'>View Info</a></td>";
+                echo "</tr>";
+              }
             ?>
           </tbody>
         </table>
@@ -114,26 +115,33 @@ if(isset($_POST['btnRegisterFaculty']))
   $UserName = $_POST['UserName'];
   $Password1 = $_POST['Password1'];
   $Password2 = $_POST['Password2'];
-
+  $DeptID = $_POST['cmbDepartment'];
+  $SchoolID = $_POST['SchoolID'];
 
   try{
     if(strpos($UserName, '@sec.edu.ph') !== false)
     {
       if($Password1==$Password2)
       {
-        $query = "INSERT INTO facultyusers (FirstName,MiddleName,LastName,UserName,UserPass,date_registered,usertype, department_id)";
-        $query .= "VALUES (:fname, :mname, :lname, :uname, :pword, now(), :usertype, :deptid);";
+        $query = "INSERT INTO `faculty`(`firstname`, `middlename`, `lastname`, `department`, `date_created`)";
+        $query .= "VALUES (:fname, :mname, :lname, :deptid, now());";
         $statement = $connection->prepare($query);
         $statement->execute(array(
             ":fname" => $FirstName,
             ":mname" => $MiddleName,
             ":lname" => $LastName,
-            ":uname" => $UserName,
-            ":pword" => $Password1,
-            ":usertype" => 1,
-            ":deptid" => $_POST['cmbDepartment']
+            ":deptid" => $DeptID
         ));
     
+        $query_second = "INSERT INTO `faculty_credential` (`faculty_code`, `faculty_password`, `faculty_id`)";
+        $query_second .= "VALUES (:uname, :upass, :uid);";
+        $statement_second = $connection->prepare($query_second);
+        $statement_second->execute(array(
+          ":uname" => $UserName,
+          ":upass" => $Password1,
+          ":uid" => $SchoolID
+        ));
+
         echo "<script>alert(`Faculty Registered!`);</script>";
     
         header("refresh: 5; url = faculty.php");

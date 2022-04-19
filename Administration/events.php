@@ -53,7 +53,7 @@
         <tr>
           <th>Event Name</th>
           <th>Description</th>
-          <th>Event Datet</th>
+          <th>Event Date</th>
           </tr>
         </thead>
           <tbody>

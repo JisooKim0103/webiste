@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DMIS - Student Management</title>
+  <title>SEC - Student Management</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +36,7 @@
    
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Student</h2>
+        <input type="text" name="SchoolID" class="form-control" placeholder="School ID" style="width:60%;" required/> </br>
         <input type="text" name="FirstName" class="form-control" placeholder="First Name" style="width:60%;" required/> </br>
         <input type="text" name="MiddleName" class="form-control" placeholder="Middle Name" style="width:60%;"/> </br>
         <input type="text" name="LastName" class="form-control" placeholder="Last Name" style="width:60%;" required/> </br>
@@ -69,24 +70,24 @@
         <thead>
         <tr>
           <th>Student Name</th>
-          <th>Account ID</th>
           <th>Department</th>
           <th>Actions</th>
           </tr>
         </thead>
           <tbody>
             <?php
-              // $statement = $connection->prepare("SELECT * FROM `student_credential`;");
-              // $statement->execute();
-              // foreach($statement as $row)
-              // {
-              //   echo "<tr>";
-              //   echo "<td>".$row['FirstName']." ".$row['MiddleName']." ".$row['LastName']."</td>";
-              //   echo "<td>".$row['UserName']."</td>";
-              //   echo "<td>".$row['DepartmentName']."</td>";
-              //   echo "<td><a href='student_info.php?userid=".$row['UserName']."' target='_blank'>View Info</a></td>";
-              //   echo "</tr>";
-              // }
+              $statement = $connection->prepare("SELECT student.student_id, student.firstname, student.lastname, student.middlename, program.program_code as `DepartmentName` FROM `student` 
+              inner join program
+              on student.program_id = program.program_id;;");
+              $statement->execute();
+              foreach($statement as $row)
+              {
+                echo "<tr>";
+                echo "<td>".$row['firstname']." ".$row['middlename']." ".$row['lastname']."</td>";
+                echo "<td>".$row['DepartmentName']."</td>";
+                echo "<td><a href='student_info.php?userid=".$row['student_id']."' target='_blank'>View Info</a></td>";
+                echo "</tr>";
+              }
             ?>
           </tbody>
         </table>
@@ -115,28 +116,33 @@ if(isset($_POST['btnRegisterFaculty']))
   $UserName = $_POST['UserName'];
   $Password1 = $_POST['Password1'];
   $Password2 = $_POST['Password2'];
-
+  $SchoolID = $_POST['SchoolID'];
+  $ProgramID = $_POST['cmbDepartment'];
   try{
     if(strpos($UserName, '@sec.edu.ph') !== false)
     {
       if($Password1==$Password2)
       {
-        $query = "INSERT INTO facultyusers (FirstName,MiddleName,LastName,UserName,UserPass,usertype,department_id)";
-        $query .= "VALUES (:fname, :mname, :lname, :uname, :pword, :usertype, :deptid);";
+        $query = "INSERT INTO `student`(`firstname`, `middlename`, `lastname`, `program_id`, `date_created`)";
+        $query .= "VALUES (:fname, :mname, :lname, :program_id, now());";
         $statement = $connection->prepare($query);
         $statement->execute(array(
             ":fname" => $FirstName,
             ":mname" => $MiddleName,
             ":lname" => $LastName,
-            ":uname" => $UserName,
-            ":pword" => $Password1,
-            ":usertype" => 0,
-            ":deptid" => $_POST['cmbDepartment']
+            ":program_id" => $ProgramID
+        ));
+    
+        $query_second = "INSERT INTO `student_credential` (`student_code`, `student_password`, `student_id`)";
+        $query_second .= "VALUES (:uname, :upass, :uid);";
+        $statement_second = $connection->prepare($query_second);
+        $statement_second->execute(array(
+          ":uname" => $UserName,
+          ":upass" => $Password1,
+          ":uid" => $SchoolID
         ));
     
         echo "<script>alert(`Student Registered!`);</script>";
-    
-        // move_uploaded_file($sig_file_temp_loc,$sig_file_destination);
         header("refresh: 5; url = student.php");
       }else{
        echo "<script>alert(`Password does not match!`);</script>";
