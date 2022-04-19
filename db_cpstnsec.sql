@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2022 at 02:33 AM
+-- Generation Time: Apr 19, 2022 at 11:53 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -263,6 +263,28 @@ CREATE TABLE `enrollmentlist` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faculty`
+--
+
+CREATE TABLE `faculty` (
+  `faculty_id` int(11) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `middlename` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `department` int(11) NOT NULL,
+  `date_created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faculty`
+--
+
+INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `date_created`) VALUES
+(1, 'John', 'L', 'Daugherty', 2, '2022-04-20 02:56:55');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `faculty_credential`
 --
 
@@ -278,8 +300,7 @@ CREATE TABLE `faculty_credential` (
 --
 
 INSERT INTO `faculty_credential` (`faculty_logid`, `faculty_code`, `faculty_password`, `faculty_id`) VALUES
-(1, 'elem.j.amurao', '123', '2022-1'),
-(2, 'hs.g.gulam', 'gulam', '2022-2');
+(1, 'jldaught@sec.edu.ph', 'Password123!!', '112123');
 
 -- --------------------------------------------------------
 
@@ -321,7 +342,8 @@ CREATE TABLE `schoolevent` (
 --
 
 INSERT INTO `schoolevent` (`event_id`, `event_name`, `event_description`, `event_date`) VALUES
-(1, 'Ok', 'ok        ', '2022-04-19');
+(1, 'Ok', 'ok        ', '2022-04-19'),
+(2, 'This is my event', 'Okay ito        ', '2022-04-20');
 
 -- --------------------------------------------------------
 
@@ -346,6 +368,28 @@ INSERT INTO `semester` (`semester_id`, `semester_description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `student_id` int(11) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `middlename` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `program_id` int(11) NOT NULL,
+  `date_created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `date_created`) VALUES
+(1, 'John Oliver', 'L', 'Amurao', 2, '2022-04-20 05:23:43');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student_credential`
 --
 
@@ -361,8 +405,7 @@ CREATE TABLE `student_credential` (
 --
 
 INSERT INTO `student_credential` (`student_logid`, `student_code`, `student_password`, `student_id`) VALUES
-(1, 'BSCS-gulamg', '123', 'AY2022-001'),
-(2, 'BSCS-amuraoj', 'amurao', 'AY2022-005');
+(1, 'joamurao@sec.edu.ph', '13XSuck!t', '00120150033');
 
 -- --------------------------------------------------------
 
@@ -401,6 +444,12 @@ ALTER TABLE `enrollmentlist`
   ADD PRIMARY KEY (`enrollment_id`);
 
 --
+-- Indexes for table `faculty`
+--
+ALTER TABLE `faculty`
+  ADD PRIMARY KEY (`faculty_id`);
+
+--
 -- Indexes for table `faculty_credential`
 --
 ALTER TABLE `faculty_credential`
@@ -423,6 +472,12 @@ ALTER TABLE `schoolevent`
 --
 ALTER TABLE `semester`
   ADD PRIMARY KEY (`semester_id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`);
 
 --
 -- Indexes for table `student_credential`
@@ -453,10 +508,16 @@ ALTER TABLE `enrollmentlist`
   MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `faculty`
+--
+ALTER TABLE `faculty`
+  MODIFY `faculty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `faculty_credential`
 --
 ALTER TABLE `faculty_credential`
-  MODIFY `faculty_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `faculty_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -468,7 +529,7 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `schoolevent`
 --
 ALTER TABLE `schoolevent`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `semester`
@@ -477,10 +538,16 @@ ALTER TABLE `semester`
   MODIFY `semester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `student_credential`
 --
 ALTER TABLE `student_credential`
-  MODIFY `student_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `student_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `web_admin`

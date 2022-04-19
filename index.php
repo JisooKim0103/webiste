@@ -52,7 +52,7 @@
           </h2>
           <hr>
           <p class = "text-justify">
-            <b>Southeaster College Faculty portal</b>
+            <b>Southeastern College Faculty portal</b>
           </p>
         </div>
       </div>
