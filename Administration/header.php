@@ -1,4 +1,9 @@
 <!-- Navigation -->
+<?php
+ if(empty($_SESSION['logged_admin'])){
+  header("location: login.php");
+}
+?>
 <nav class="navbar navbar-expand-lg bg-light static-top">
     <div class="container">
       <a class="navbar-brand text-info" href="index.php" >

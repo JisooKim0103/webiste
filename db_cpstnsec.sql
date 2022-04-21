@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2022 at 08:01 AM
+-- Generation Time: Apr 22, 2022 at 12:47 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -278,6 +278,19 @@ INSERT INTO `course` (`course_id`, `course_code`, `course_description`, `year_le
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `course_handled`
+--
+
+CREATE TABLE `course_handled` (
+  `course_handling_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `faculty_id` int(11) NOT NULL,
+  `date_create` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `enrollmentlist`
 --
 
@@ -310,7 +323,7 @@ CREATE TABLE `faculty` (
 --
 
 INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `class_id`, `date_created`) VALUES
-(1, 'John', 'L', 'Daugherty', 2, 0, '2022-04-20 02:56:55');
+(1, 'John', 'L', 'Daugherty', 5, 0, '2022-04-20 02:56:55');
 
 -- --------------------------------------------------------
 
@@ -330,7 +343,7 @@ CREATE TABLE `faculty_credential` (
 --
 
 INSERT INTO `faculty_credential` (`faculty_logid`, `faculty_code`, `faculty_password`, `faculty_id`) VALUES
-(1, 'jldaught@sec.edu.ph', 'Password123!!', '112123');
+(1, 'jldaught@sec.edu.ph', 'Password123!', '112123');
 
 -- --------------------------------------------------------
 
@@ -352,7 +365,10 @@ INSERT INTO `program` (`program_id`, `program_code`, `program_description`) VALU
 (1, 'BSBA', 'Business Adminsitration'),
 (2, 'BSCS', 'Computer Science'),
 (3, 'BSED', 'Elementary Education'),
-(4, 'BSOA', 'Office Adminsitration');
+(4, 'BSOA', 'Office Adminsitration'),
+(5, 'BEeD-ENG', 'Elementary Education - English'),
+(6, 'BEeD-FIL', 'Elementary Education - Filipino'),
+(7, 'BEeD-MAT', 'Elementary Education - Mathematics');
 
 -- --------------------------------------------------------
 
@@ -416,7 +432,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `class_id`, `date_created`) VALUES
-(1, 'John Oliver', 'L', 'Amurao', 2, 0, '2022-04-20 05:23:43');
+(1, 'John Oliver', 'La', 'Amurao', 5, 0, '2022-04-20 05:23:43');
 
 -- --------------------------------------------------------
 
@@ -436,7 +452,7 @@ CREATE TABLE `student_credential` (
 --
 
 INSERT INTO `student_credential` (`student_logid`, `student_code`, `student_password`, `student_id`) VALUES
-(1, 'joamurao@sec.edu.ph', '13XSuck!t', '00120150033');
+(1, 'joamurao@sec.edu.ph', 'Password123!', '00120150033');
 
 -- --------------------------------------------------------
 
@@ -479,6 +495,12 @@ ALTER TABLE `assignment_submission`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`course_id`);
+
+--
+-- Indexes for table `course_handled`
+--
+ALTER TABLE `course_handled`
+  ADD PRIMARY KEY (`course_handling_id`);
 
 --
 -- Indexes for table `enrollmentlist`
@@ -557,6 +579,12 @@ ALTER TABLE `course`
   MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
+-- AUTO_INCREMENT for table `course_handled`
+--
+ALTER TABLE `course_handled`
+  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `enrollmentlist`
 --
 ALTER TABLE `enrollmentlist`
@@ -578,7 +606,7 @@ ALTER TABLE `faculty_credential`
 -- AUTO_INCREMENT for table `program`
 --
 ALTER TABLE `program`
-  MODIFY `program_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `program_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `schoolevent`

@@ -6,11 +6,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DMIS - My Profile</title>
+  <title>SEC - My Profile</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/general.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>

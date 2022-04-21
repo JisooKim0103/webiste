@@ -7,11 +7,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DMIS - Dashboard</title>
+  <title>SEC - Dashboard</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/general.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -26,46 +26,55 @@
   <div class="container-fluid">
 
   <div class = "text-center">
-<img src = "../assets/eacimg.jpg" style="max-width:100%" class = "img-fluid rounded"/>
-</div>
-  
+    <img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" height="100px" width="100px" class = "img-fluid rounded"/>
+  </div>
+  <div class="row">
+    
+  <div class="col-md-6">
+    <h2>Course(s) teached</h2>
+    <table>
+      <thead>
+        <tr></tr>
+      </thead>
+      <tbody>
+        <tr></tr>
+      </tbody>
+    </table>
+    </div>
+    
+    <div class="col-md-6">
+      <h2>Events</h2>
+      <div style="height: 250px; overflow: auto">
+        <table class="table" >
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+              $query = "SELECT * from schoolevent;";
+              $statement = $connection->prepare($query);
+              $statement->execute();
 
-      <div class = "fixed-bottom">
-<!-- First Card Row -->
-      <div class ="row mt-5">
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-        <!-- <h2 class="text-success"> </h2> -->
-        <hr>
-        <h3 class="text-center text-success"><a href="document.php" target="_blank" class = "btn btn-light">
-        <?php
-        $query = "SELECT COUNT(*) FROM filesubmissions;";
-        $statement = $connection->query($query);
-        echo $statement->fetchColumn();
-        ?>
-        <i class="fas fa-file-alt"></i>&nbsp;Document Submission(s)
-        </a></h3>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-        <!-- <h2 class="text-warning"></h2> -->
-        <hr>
-        <h3 class="text-center text-success"><a href="backups.php" target="_blank" class = "btn btn-light">
-        <?php
-        $query = "SELECT COUNT(*) FROM activitylogs where activity = 'FILE BACKUP' and resolve = '';";
-        $statement = $connection->query($query);
-        echo $statement->fetchColumn();
-        ?>
-        <i class="far fa-question-circle"></i>&nbsp;Backup Request(s)
-        </a></h3>
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        </div>
+              foreach($statement as $row)
+              {
+                echo "<tr>
+                    <td>".$row['event_name']."</td>
+                    <td>".$row['event_date']."</td>
+                </tr>";
+              }
+          ?>
+        </tbody>
+      </table>  
       </div>
-      </div>
-      </div>
+    </div>
+  </div>
+
+     
   </div>
   <!-- Bootstrap core JavaScript -->
- <!-- <?php include('footer.php');?> -->
+ <?php include('footer.php');?>
 </body>
 </html>

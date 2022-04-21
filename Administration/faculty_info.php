@@ -28,34 +28,46 @@ if(empty($_GET))
     <div class = "col-md-3"></div>
     <div class = "col-md-6">
     
-<form class="form-group" method="post">
-<h2 class = "text-center"><i class="fas fa-user-cog"></i>&nbsp;Faculty Info</h2><hr style="width:100%"/>
+    <form class="form-group" method="post">
+    <h2 class = "text-center"><i class="fas fa-user-cog"></i>&nbsp;Faculty Info</h2><hr style="width:100%"/>
     <?php
-        // $statement = $connection->prepare("SELECT * from `faculty` where faculty_id =:username;");
+        $statement = $connection->prepare("SELECT 
+        faculty.firstname, faculty.middlename, faculty.lastname, faculty_credential.faculty_password 
+        from `faculty` 
+        inner join `faculty_credential` 
+        ON faculty.faculty_id = faculty_credential.faculty_logid
+        where faculty.faculty_id =:username;");
 
-        // $statement->execute(array(
-        //     ":username" => $_GET['userid']
-        // ));
+        $statement->execute(array(
+            ":username" => $_GET['userid']
+        ));
 
-        // foreach($statement as $row)
-        // {
-        //     echo "<input type='text' class='form-control' style='width:100%;' name='FirstName' value='".$row['FirstName']."' required placeholder='Enter First Name'><br>";
-        //     echo "<input type='text' class='form-control' style='width:100%;' name='MiddleName' value='".$row['MiddleName']."' placeholder='Enter Middle Name'/><br>";
-        //     echo "<input type='text' class='form-control' style='width:100%;' name='LastName' value='".$row['LastName']."' required placeholder='Enter Last Name'/><br>";
-        //     // echo "<img src ='../user_signatures/".$row['faculty_signature']."' class='img-responsive' height='150' width='300'/>";
-        // }
+        foreach($statement as $row)
+        {
+            echo "<input type='text' class='form-control' style='width:100%;' name='FirstName' value='".$row['firstname']."' required placeholder='Enter First Name'><br>";
+            echo "<input type='text' class='form-control' style='width:100%;' name='MiddleName' value='".$row['middlename']."' placeholder='Enter Middle Name'/><br>";
+            echo "<input type='text' class='form-control' style='width:100%;' name='LastName' value='".$row['lastname']."' required placeholder='Enter Last Name'/><br>";
+            echo "<input type='password' class='form-control' style='width:100%;' name='OriginalPassword' value='".$row['faculty_password']."' readonly required placeholder='Enter Original Password'/><br>";
+        }
+        $program_query = "SELECT * from `program`;";
+         $program_query_statement = $connection->prepare($program_query);
+         $program_query_statement->execute();
+        
+         echo "<select name ='cmbProgram' class='form-control' required>";
+         echo "<option value=''>Select Program</option>";
+         foreach($program_query_statement as $row)
+         {
+          echo "<option value='".$row['program_id']."'>".$row['program_code']."</option>";
+         }
+         echo "</select><br/>";
     ?>
-<input type="password" class="form-control" name="Password1" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
-        title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Enter New Password'/><br/>
-<input type="password" class="form-control" name="Password2" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
-        title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Re-type new Password'/><br/>
-<button name="btnUpdate" type="submit" class="btn btn-info" style="width:100%;"><i class="fas fa-pen-alt"></i>&nbsp;Update Info</button>
-</form>
+      <input type="password" class="form-control" name="Password1" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
+              title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Enter New Password'/><br/>
+      <input type="password" class="form-control" name="Password2" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
+              title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Re-type new Password'/><br/>
+      <button name="btnUpdate" type="submit" class="btn btn-info" style="width:100%;"><i class="fas fa-pen-alt"></i>&nbsp;Update Info</button>
+      </form>
 
-<!-- <form method="post">
-<input type="hidden" name = "UserName" value="<?php echo $_GET['userid']; ?>"/>
-<button name="btnDelete" type="submit" class="btn btn-danger" style="width:100%;"><i class="fas fa-user-times"></i>&nbsp;Delete Info</button>
-</form> -->
     </div>
     <div class = "col-md-3"></div>
     </div>
@@ -66,27 +78,45 @@ if(empty($_GET))
 <?php
 if(isset($_POST['btnUpdate']))
 {
+  $FirstName = $_POST['FirstName'];
+  $MiddleName = $_POST['MiddleName'];
+  $LastName = $_POST['LastName'];
   $UserName = $_GET['userid'];
+  $ProgramID = $_POST['cmbProgram'];
+  $OriginalPassword = $_POST['OriginalPassword'];
   $Password1 = $_POST['Password1'];
   $Password2 = $_POST['Password2'];
 
-  if($Password1==$Password2)
+  if(!empty($OriginalPassword))
   {
-    try{
-      $query = "UPDATE `faculty_credential` set `faculty_password`= :pword where `faculty_logid` = :uname;";
-      $statement = $connection->prepare($query);
-      $statement->execute(array(
-          ":pword" => $Password1,
-          ":uname" => $UserName
-      ));
-      echo "<h3 class='text-center text-success'>Faculty credentials Updated!</h3>";
-      header("refresh:3; url = faculty.php");
-    }catch(Exception $e)
+    if($Password1==$Password2)
     {
-      $e->getMessage();
+      try{
+        $query = "UPDATE `faculty_credential` set `faculty_password`= :pword where `faculty_logid` = :uname;";
+        $statement = $connection->prepare($query);
+        $statement->execute(array(
+            ":pword" => $Password1,
+            ":uname" => $UserName
+        ));
+        $updateFacultyStatement = $connection->prepare("UPDATE `faculty` SET  firstname = :fname, middlename = :mname, lastname = :lname,
+        department = :programid WHERE faculty_id = :uname;");
+        $updateFacultyStatement->execute(array(
+          ":fname" => $FirstName,
+          ":mname" => $MiddleName,
+          ":lname" => $LastName,
+          ":programid" => $ProgramID,
+          ":uname" => $UserName
+        ));
+        echo "<h3 class='text-center text-success'>Faculty credentials Updated!</h3>";
+        header("refresh:3; url = faculty.php");
+      }catch(Exception $e)
+      {
+        $e->getMessage();
+      }
+    }else{
+    echo "<h3 class='text-danger'>Password does not match!</h2>";
     }
-  }else{
-   echo "<h3 class='text-danger'>Password does not match!</h2>";
   }
+  
 }
 ?>
