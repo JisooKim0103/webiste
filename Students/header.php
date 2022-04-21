@@ -10,27 +10,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard
-            </a>
+        <li class="nav-item">
+            <a class="nav-link" href="index.php"><i class="fas fa-home" class="nav-link"></i>&nbsp;Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="faculty.php"><i class="fas fa-users-cog"></i>&nbsp;Faculty</a>
+            <a class="nav-link" href="upload.php"><i class="far fa-file-archive"></i>&nbsp;Upload File</a>
           </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="view_file.php"><i class="fas fa-list"></i>&nbsp;View Files</a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="notifications.php"><i class="fas fa-bell"></i>&nbsp;Notifications</a>
+          </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="student.php"><i class="fas fa-user-graduate"></i>&nbsp;Students</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="document.php"><i class="fas fa-sitemap"></i>&nbsp;Documents</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="document_template.php"><i class="far fa-file-alt"></i>&nbsp;Templates</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="backups.php"><i class="far fa-file-alt"></i>&nbsp;Backup</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="my_account.php"><i class="fas fa-user-cog"></i>&nbsp;Profile</a>
+            <a class="nav-link" href="my_profile.php"><i class="far fa-id-badge"></i>&nbsp;My Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>

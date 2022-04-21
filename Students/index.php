@@ -26,44 +26,52 @@
   <div class="container-fluid">
 
   <div class = "text-center">
-<img src = "../assets/eacimg.jpg" style="max-width:100%" class = "img-fluid rounded"/>
-</div>
-  
+    <img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" height="100" width="100" class = "img-fluid rounded"/>
+  </div>
 
-      <div class = "fixed-bottom">
-<!-- First Card Row -->
-      <div class ="row mt-5">
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-        <!-- <h2 class="text-success"> </h2> -->
-        <hr>
-        <h3 class="text-center text-success"><a href="document.php" target="_blank" class = "btn btn-light">
-        <?php
-        $query = "SELECT COUNT(*) FROM filesubmissions;";
-        $statement = $connection->query($query);
-        echo $statement->fetchColumn();
-        ?>
-        <i class="fas fa-file-alt"></i>&nbsp;Document Submission(s)
-        </a></h3>
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-        <!-- <h2 class="text-warning"></h2> -->
-        <hr>
-        <h3 class="text-center text-success"><a href="backups.php" target="_blank" class = "btn btn-light">
-        <?php
-        $query = "SELECT COUNT(*) FROM activitylogs where activity = 'FILE BACKUP' and resolve = '';";
-        $statement = $connection->query($query);
-        echo $statement->fetchColumn();
-        ?>
-        <i class="far fa-question-circle"></i>&nbsp;Backup Request(s)
-        </a></h3>
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        </div>
-      </div>
-      </div>
-      </div>
+  <h2>Currently Enrolled Course(s):</h2>  
+  <div id="schedule"  style="height: 100px; overflow: auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Class</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- To be filled -->
+    </tbody>
+  </table>  
+</div>
+
+<h2>Event(s):</h2>
+<div id="events" style="height: 100px; overflow: auto">
+  <table class="table" >
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+          $query = "SELECT * from schoolevent;";
+          $statement = $connection->prepare($query);
+          $statement->execute();
+
+          foreach($statement as $row)
+          {
+            echo "<tr>
+                <td>".$row['event_name']."</td>
+                <td>".$row['event_date']."</td>
+            </tr>";
+          }
+      ?>
+    </tbody>
+  </table>  
+</div>
+
+      
   </div>
   <!-- Bootstrap core JavaScript -->
  <!-- <?php include('footer.php');?> -->

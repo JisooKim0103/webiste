@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2022 at 11:53 PM
+-- Generation Time: Apr 21, 2022 at 08:01 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_cpstnsec`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assignment`
+--
+
+CREATE TABLE `assignment` (
+  `assignment_id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `faculty_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `submission_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assignment_submission`
+--
+
+CREATE TABLE `assignment_submission` (
+  `submission_id` int(11) NOT NULL,
+  `assignment_id` int(11) NOT NULL,
+  `student_email` varchar(75) NOT NULL,
+  `submission_link` text NOT NULL,
+  `submission_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -272,6 +301,7 @@ CREATE TABLE `faculty` (
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `department` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
   `date_created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -279,8 +309,8 @@ CREATE TABLE `faculty` (
 -- Dumping data for table `faculty`
 --
 
-INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `date_created`) VALUES
-(1, 'John', 'L', 'Daugherty', 2, '2022-04-20 02:56:55');
+INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `class_id`, `date_created`) VALUES
+(1, 'John', 'L', 'Daugherty', 2, 0, '2022-04-20 02:56:55');
 
 -- --------------------------------------------------------
 
@@ -377,6 +407,7 @@ CREATE TABLE `student` (
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `program_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
   `date_created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -384,8 +415,8 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `date_created`) VALUES
-(1, 'John Oliver', 'L', 'Amurao', 2, '2022-04-20 05:23:43');
+INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `class_id`, `date_created`) VALUES
+(1, 'John Oliver', 'L', 'Amurao', 2, 0, '2022-04-20 05:23:43');
 
 -- --------------------------------------------------------
 
@@ -430,6 +461,18 @@ INSERT INTO `web_admin` (`admin_id`, `admincode`, `adminpass`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `assignment`
+--
+ALTER TABLE `assignment`
+  ADD PRIMARY KEY (`assignment_id`);
+
+--
+-- Indexes for table `assignment_submission`
+--
+ALTER TABLE `assignment_submission`
+  ADD PRIMARY KEY (`submission_id`);
 
 --
 -- Indexes for table `course`
@@ -494,6 +537,18 @@ ALTER TABLE `web_admin`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `assignment`
+--
+ALTER TABLE `assignment`
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `assignment_submission`
+--
+ALTER TABLE `assignment_submission`
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course`
