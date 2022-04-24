@@ -49,6 +49,9 @@ include("../db/database.php");
         </div>
        <div class = "col-md-4"></div>
       </div>
+      <div class="text-center">
+         <a href="../">Return to Main Page</a>
+      </div>
     </div>
     <?php include('footer.php');?>
 </body>

@@ -11,7 +11,7 @@ include("../db/database.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEC - Student Login</title>
+    <title>SEC - Faculty Login</title>
       <link rel="stylesheet" href="../css/bootstrap.min.css">
       <link href="../css/style.css" rel="stylesheet">
       <style>
@@ -48,6 +48,9 @@ include("../db/database.php");
          </form> 
         </div>
        <div class = "col-md-4"></div>
+      </div>
+      <div class="text-center">
+         <a href="../">Return to Main Page</a>
       </div>
     </div>
     <?php include('footer.php');?>
