@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2022 at 03:09 AM
+-- Generation Time: Apr 24, 2022 at 03:45 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -42,7 +42,7 @@ CREATE TABLE `assignment` (
 --
 
 INSERT INTO `assignment` (`assignment_id`, `title`, `description`, `faculty_id`, `class_id`, `submission_date`, `date_created`) VALUES
-(1, '2', '2', 1, 2, '2022-04-23 00:00:00', '2022-04-24 07:55:40'),
+(1, 'This is my Assignment', '2', 1, 2, '2022-04-23 00:00:00', '2022-04-24 07:55:40'),
 (2, '2333', '332', 1, 4, '2022-04-20 00:00:00', '2022-04-24 08:03:44'),
 (3, 'aa', 'aa', 1, 4, '2022-04-14 00:00:00', '2022-04-24 08:04:09'),
 (4, 'fff', 'fff', 1, 7, '2022-04-23 00:00:00', '2022-04-24 08:05:07'),
@@ -61,6 +61,13 @@ CREATE TABLE `assignment_submission` (
   `submission_link` text NOT NULL,
   `submission_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `assignment_submission`
+--
+
+INSERT INTO `assignment_submission` (`submission_id`, `assignment_id`, `student_email`, `submission_link`, `submission_date`) VALUES
+(1, 1, 'joamurao@sec.edu.ph', 'https://www.google.com', '2022-04-24 20:58:33');
 
 -- --------------------------------------------------------
 
@@ -312,9 +319,16 @@ CREATE TABLE `enrollmentlist` (
   `enrollment_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `program_id` int(11) NOT NULL,
-  `year_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
   `academic_year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `enrollmentlist`
+--
+
+INSERT INTO `enrollmentlist` (`enrollment_id`, `student_id`, `program_id`, `class_id`, `academic_year`) VALUES
+(1, 1, 2, 2, 2022);
 
 -- --------------------------------------------------------
 
@@ -584,7 +598,7 @@ ALTER TABLE `assignment`
 -- AUTO_INCREMENT for table `assignment_submission`
 --
 ALTER TABLE `assignment_submission`
-  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -602,7 +616,7 @@ ALTER TABLE `course_handled`
 -- AUTO_INCREMENT for table `enrollmentlist`
 --
 ALTER TABLE `enrollmentlist`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `faculty`

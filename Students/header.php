@@ -19,7 +19,7 @@
             <a class="nav-link" href="index.php"><i class="fas fa-home" class="nav-link"></i>&nbsp;Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="upload.php"><i class="far fa-file-archive"></i>&nbsp;Upload File</a>
+            <a class="nav-link" href="upload.php"><i class="far fa-file-archive"></i>&nbsp;Assignment Submission</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="my_account.php"><i class="far fa-id-badge"></i>&nbsp;My Profile</a>

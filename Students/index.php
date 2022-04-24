@@ -20,6 +20,17 @@
   include('session.php');
   include('header.php');
   include('../db/database.php');
+  $id_query = "SELECT student_credential.student_logid from `student_credential` 
+  WHERE student_credential.student_code = :id;";
+  $id_queryStatement = $connection->prepare($id_query);
+  $id_queryStatement->execute(array(
+    ":id"=>$_SESSION['logged_student']
+  ));
+  $ID = "";
+  foreach($id_queryStatement as $idRow)
+  {
+    $ID = $idRow['student_logid'];
+  }
   ?>
 
   <!-- Page Content -->
@@ -35,11 +46,28 @@
     <thead>
       <tr>
         <th>Course</th>
-        <th>Class</th>
+        <th>Course Description</th>
       </tr>
     </thead>
     <tbody>
-      <!-- To be filled -->
+      <?php
+        $query="SELECT course.course_code, course.course_description FROM `course`
+        INNER JOIN `enrollmentlist`
+        ON course.course_id = enrollmentlist.class_id
+        WHERE enrollmentlist.student_id = :id;";
+        $statement = $connection->prepare($query);
+        $statement->execute(array(
+          ":id" => $ID
+        ));
+        
+        foreach($statement as $row)
+        {
+          echo "<tr>
+            <td>".$row['course_code']."</td>
+            <td>".$row['course_description']."</td>
+          </tr>";
+        }
+      ?>
     </tbody>
   </table>  
 </div>
@@ -74,6 +102,6 @@
       
   </div>
   <!-- Bootstrap core JavaScript -->
- <!-- <?php include('footer.php');?> -->
+ <?php include('footer.php');?>
 </body>
 </html>
