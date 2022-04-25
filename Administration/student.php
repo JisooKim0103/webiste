@@ -119,8 +119,6 @@ if(isset($_POST['btnRegisterFaculty']))
   $SchoolID = $_POST['SchoolID'];
   $ProgramID = $_POST['cmbDepartment'];
   try{
-    if(strpos($UserName, '@sec.edu.ph') !== false)
-    {
       if($Password1==$Password2)
       {
         $query = "INSERT INTO `student`(`firstname`, `middlename`, `lastname`, `program_id`, `date_created`)";
@@ -146,11 +144,7 @@ if(isset($_POST['btnRegisterFaculty']))
         header("refresh: 5; url = student.php");
       }else{
        echo "<script>alert(`Password does not match!`);</script>";
-      }
-    }else{
-      echo "<script>alert(`Email address isn't part of the SEC domain!`);</script>";
-    }
-   
+      } 
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

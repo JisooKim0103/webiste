@@ -26,6 +26,9 @@
             <a class="nav-link" href="student.php"><i class="fas fa-user-graduate"></i>&nbsp;Students</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="program_assignment.php"><i class="fas fa-id-card"></i>&nbsp;Program Assignment</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="events.php"><i class="fas fa-calendar-alt"></i>&nbsp;Events</a>
           </li>
           <li class="nav-item">

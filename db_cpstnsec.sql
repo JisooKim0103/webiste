@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2022 at 03:45 PM
+-- Generation Time: Apr 25, 2022 at 01:45 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -328,7 +328,15 @@ CREATE TABLE `enrollmentlist` (
 --
 
 INSERT INTO `enrollmentlist` (`enrollment_id`, `student_id`, `program_id`, `class_id`, `academic_year`) VALUES
-(1, 1, 2, 2, 2022);
+(1, 1, 2, 50, 2022),
+(2, 1, 2, 51, 2022),
+(3, 1, 2, 52, 2022),
+(4, 1, 2, 53, 2022),
+(5, 1, 2, 54, 2022),
+(6, 1, 2, 55, 2022),
+(7, 1, 2, 56, 2022),
+(8, 1, 2, 57, 2022),
+(9, 1, 2, 58, 2022);
 
 -- --------------------------------------------------------
 
@@ -460,7 +468,8 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `class_id`, `date_created`) VALUES
-(1, 'John Oliver', 'La', 'Amurao', 5, 0, '2022-04-20 05:23:43');
+(1, 'John Oliver', 'La', 'Amurao', 5, 0, '2022-04-20 05:23:43'),
+(2, 'Student 2', 'Student', 'Student 2', 2, 0, '2022-04-25 18:36:54');
 
 -- --------------------------------------------------------
 
@@ -480,7 +489,8 @@ CREATE TABLE `student_credential` (
 --
 
 INSERT INTO `student_credential` (`student_logid`, `student_code`, `student_password`, `student_id`) VALUES
-(1, 'joamurao@sec.edu.ph', 'Password123!', '00120150033');
+(1, 'joamurao@sec.edu.ph', 'Password123!', '00120150033'),
+(2, 'student2@gmail.com', 'Password123!', '123456');
 
 -- --------------------------------------------------------
 
@@ -616,7 +626,7 @@ ALTER TABLE `course_handled`
 -- AUTO_INCREMENT for table `enrollmentlist`
 --
 ALTER TABLE `enrollmentlist`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `faculty`
@@ -652,13 +662,13 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student_credential`
 --
 ALTER TABLE `student_credential`
-  MODIFY `student_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `web_admin`
