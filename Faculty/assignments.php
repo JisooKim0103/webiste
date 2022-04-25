@@ -43,24 +43,26 @@
         <select name="cmbCurrentCourse" class="form-control">
             <option value="">Select Course/Section</option>
             <?php
-                $query = "SELECT course.course_id, course.course_description, program.program_code FROM `course`
-                INNER JOIN `program` ON course.program_id = program.program_id;";
-                $statement = $connection->query($query);
-                $statement->execute();
+                $sqlCoursesHandledQuery = "SELECT course.course_id, course.course_code, program.program_code from `course`
+                INNER JOIN `program` ON course.program_id = program.program_id
+                INNER JOIN `course_handled` ON course_handled.course_id = course.course_id
+                WHERE course_handled.faculty_id = :id;";
+                $statement = $connection->prepare($sqlCoursesHandledQuery);
+                $statement->execute([":id" => $ID]);
                 foreach($statement as $row)
-                {
-                    echo "<option value='".$row['course_id']."'>".$row['course_description']." - ".$row['program_code']."</option>";
+                { 
+                    echo "<option value='".$row['course_id']."'>".$row['course_code']." / ".$row['program_code']."</option>";
                 }
             ?>
         </select>
     </div>
     <label>Title</label>
     <div class="form-group">
-        <input type="text" name="txtTitle" class="form-control" required/>
+        <input type="text" name="txtTitle" class="form-control" placeholder="Enter Assignment title" required/>
       </div>
       <label>Description</label>
       <div class="form-group">
-        <input type="text" name="txtDescription" class="form-control" required/>
+        <input type="text" name="txtDescription" class="form-control" placeholder="Enter Assignment instructions" required/>
       </div>
       <label>Date of Submission</label>
       <div class="form-group">

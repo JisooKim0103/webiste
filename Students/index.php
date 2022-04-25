@@ -51,9 +51,9 @@
     </thead>
     <tbody>
       <?php
-        $query="SELECT course.course_code, course.course_description FROM `course`
-        INNER JOIN `enrollmentlist`
-        ON course.course_id = enrollmentlist.class_id
+        $query="SELECT course.course_code, course.course_description, program.program_code FROM `course`
+        INNER JOIN `enrollmentlist`ON course.course_id = enrollmentlist.class_id
+        INNER JOIN `program` ON program.program_id = enrollmentlist.program_id
         WHERE enrollmentlist.student_id = :id;";
         $statement = $connection->prepare($query);
         $statement->execute(array(
@@ -64,7 +64,7 @@
         {
           echo "<tr>
             <td>".$row['course_code']."</td>
-            <td>".$row['course_description']."</td>
+            <td>".$row['course_description']."/ <b>".$row['program_code']."</b></td>
           </tr>";
         }
       ?>

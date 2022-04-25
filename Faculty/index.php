@@ -20,6 +20,15 @@
   include('session.php');
   include('header.php');
   include('../db/database.php');
+  $ID = "";
+    $idQuery = $connection->prepare("SELECT faculty_logid from faculty_credential where faculty_code = :code;");
+    $idQuery->execute(array(":code" => $_SESSION['logged_faculty']));
+
+
+    foreach($idQuery as $idrow)
+    {
+        $ID = $idrow['faculty_logid'];
+    }
   ?>
 
   <!-- Page Content -->
@@ -31,20 +40,37 @@
   <div class="row">
     
   <div class="col-md-6">
-    <h2>Course(s) teached</h2>
-    <table>
+    <h2>Course(s) assigned</h2>
+    <table class="table">
       <thead>
-        <tr></tr>
+        <tr>
+          <th>Course</th>
+          <th>Program</th>
+        </tr>
       </thead>
       <tbody>
-        <tr></tr>
+          <?php
+            $sqlCoursesHandledQuery = "SELECT course.course_code, program.program_code from `course`
+            INNER JOIN `program` ON course.program_id = program.program_id
+            INNER JOIN `course_handled` ON course_handled.course_id = course.course_id
+            WHERE course_handled.faculty_id = :id;";
+            $statement = $connection->prepare($sqlCoursesHandledQuery);
+            $statement->execute([":id" => $ID]);
+            foreach($statement as $row)
+            { 
+                echo "<tr>
+                  <td>".$row['course_code']."</td>
+                  <td>".$row['program_code']."</td>
+                </tr>";
+            }
+          ?>
       </tbody>
     </table>
     </div>
     
     <div class="col-md-6">
       <h2>Events</h2>
-      <div style="height: 250px; overflow: auto">
+      <div style="height: 500px; overflow: auto">
         <table class="table" >
         <thead>
           <tr>

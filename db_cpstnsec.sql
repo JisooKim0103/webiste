@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2022 at 01:45 PM
+-- Generation Time: Apr 25, 2022 at 09:44 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -42,11 +42,7 @@ CREATE TABLE `assignment` (
 --
 
 INSERT INTO `assignment` (`assignment_id`, `title`, `description`, `faculty_id`, `class_id`, `submission_date`, `date_created`) VALUES
-(1, 'This is my Assignment', '2', 1, 2, '2022-04-23 00:00:00', '2022-04-24 07:55:40'),
-(2, '2333', '332', 1, 4, '2022-04-20 00:00:00', '2022-04-24 08:03:44'),
-(3, 'aa', 'aa', 1, 4, '2022-04-14 00:00:00', '2022-04-24 08:04:09'),
-(4, 'fff', 'fff', 1, 7, '2022-04-23 00:00:00', '2022-04-24 08:05:07'),
-(5, '1+1', '2', 1, 4, '2022-04-28 00:00:00', '2022-04-24 09:06:30');
+(1, 'This is a test', 'Testing', 1, 1, '2022-04-30 00:00:00', '2022-04-26 03:31:10');
 
 -- --------------------------------------------------------
 
@@ -61,13 +57,6 @@ CREATE TABLE `assignment_submission` (
   `submission_link` text NOT NULL,
   `submission_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `assignment_submission`
---
-
-INSERT INTO `assignment_submission` (`submission_id`, `assignment_id`, `student_email`, `submission_link`, `submission_date`) VALUES
-(1, 1, 'joamurao@sec.edu.ph', 'https://www.google.com', '2022-04-24 20:58:33');
 
 -- --------------------------------------------------------
 
@@ -309,6 +298,13 @@ CREATE TABLE `course_handled` (
   `date_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `course_handled`
+--
+
+INSERT INTO `course_handled` (`course_handling_id`, `course_id`, `faculty_id`, `date_create`) VALUES
+(1, 1, 1, '2022-04-26 03:02:28');
+
 -- --------------------------------------------------------
 
 --
@@ -336,7 +332,15 @@ INSERT INTO `enrollmentlist` (`enrollment_id`, `student_id`, `program_id`, `clas
 (6, 1, 2, 55, 2022),
 (7, 1, 2, 56, 2022),
 (8, 1, 2, 57, 2022),
-(9, 1, 2, 58, 2022);
+(9, 1, 2, 58, 2022),
+(10, 2, 1, 1, 2022),
+(11, 2, 1, 2, 2022),
+(12, 2, 1, 3, 2022),
+(13, 2, 1, 4, 2022),
+(14, 2, 1, 5, 2022),
+(15, 2, 1, 6, 2022),
+(16, 2, 1, 7, 2022),
+(17, 2, 1, 8, 2022);
 
 -- --------------------------------------------------------
 
@@ -350,7 +354,7 @@ CREATE TABLE `faculty` (
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `department` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
+  `program_id` int(11) NOT NULL,
   `date_created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -358,8 +362,8 @@ CREATE TABLE `faculty` (
 -- Dumping data for table `faculty`
 --
 
-INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `class_id`, `date_created`) VALUES
-(1, 'John', 'L', 'Daugherty', 5, 0, '2022-04-20 02:56:55');
+INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `program_id`, `date_created`) VALUES
+(1, 'John', 'L', 'Daugherty', 5, 1, '2022-04-20 02:56:55');
 
 -- --------------------------------------------------------
 
@@ -459,7 +463,6 @@ CREATE TABLE `student` (
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `program_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
   `date_created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -467,9 +470,9 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `class_id`, `date_created`) VALUES
-(1, 'John Oliver', 'La', 'Amurao', 5, 0, '2022-04-20 05:23:43'),
-(2, 'Student 2', 'Student', 'Student 2', 2, 0, '2022-04-25 18:36:54');
+INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `date_created`) VALUES
+(1, 'John Oliver', 'La', 'Amurao', 5, '2022-04-20 05:23:43'),
+(2, 'Student 2', 'Student', 'Student 2', 2, '2022-04-25 18:36:54');
 
 -- --------------------------------------------------------
 
@@ -602,13 +605,13 @@ ALTER TABLE `web_admin`
 -- AUTO_INCREMENT for table `assignment`
 --
 ALTER TABLE `assignment`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `assignment_submission`
 --
 ALTER TABLE `assignment_submission`
-  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -620,13 +623,13 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `course_handled`
 --
 ALTER TABLE `course_handled`
-  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `enrollmentlist`
 --
 ALTER TABLE `enrollmentlist`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `faculty`
