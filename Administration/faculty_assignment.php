@@ -88,7 +88,7 @@
             <?php
               $statement = $connection->prepare("SELECT faculty.firstname, faculty.middlename, faculty.lastname,  course.course_code, program.program_code FROM `course_handled` 
               inner join `course` on course_handled.course_id = course.course_id
-              inner join `faculty` on faculty.faculty_id = course_handled.faculty_id
+              inner join `faculty`   on faculty.faculty_id = course_handled.faculty_id
               inner join `program` on course.program_id = program.program_id;");
               $statement->execute();
               foreach($statement as $row)
