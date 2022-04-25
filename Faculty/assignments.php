@@ -11,6 +11,7 @@
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -77,7 +78,7 @@
     <!-- Second Column -->
     <div class="col-md-8">
         <h1>Assignment Listings</h1><br/>
-    <table class="table">
+    <table id="table" class="table">
             <thead>
                 <th>Assignment Title</th>
                 <th>Instructions</th>
@@ -107,7 +108,11 @@
 
   <!-- Bootstrap core JavaScript -->
   <?php include('footer.php');?>
-
+  <script>
+$(document).ready( function () {
+    $('#table').DataTable();
+} );
+</script>
 </body>
 
 </html>

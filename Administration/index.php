@@ -50,14 +50,9 @@
         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <!-- <h2 class="text-warning"></h2> -->
         <hr>
-        <h3 class="text-center text-success"><a href="" target="_blank" class = "btn btn-light">
-        <?php
-        // $query = "SELECT COUNT(*) FROM activitylogs where activity = 'FILE BACKUP' and resolve = '';";
-        // $statement = $connection->query($query);
-        // echo $statement->fetchColumn();
-        ?>
+        <!-- <h3 class="text-center text-success"><a href="" target="_blank" class = "btn btn-light">
         <i class="far fa-question-circle"></i>&nbsp;Do not click
-        </a></h3>
+        </a></h3> -->
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
         </div>

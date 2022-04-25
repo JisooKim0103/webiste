@@ -12,6 +12,7 @@
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -41,7 +42,7 @@
     
   <div class="col-md-6">
     <h2>Course(s) assigned</h2>
-    <table class="table">
+    <table id="course" class="table">
       <thead>
         <tr>
           <th>Course</th>
@@ -71,7 +72,7 @@
     <div class="col-md-6">
       <h2>Events</h2>
       <div style="height: 500px; overflow: auto">
-        <table class="table" >
+        <table id="event" class="table" >
         <thead>
           <tr>
             <th>Event</th>
@@ -80,7 +81,7 @@
         </thead>
         <tbody>
           <?php
-              $query = "SELECT * from schoolevent;";
+              $query = "SELECT * from schoolevent where event_date >= curdate();";
               $statement = $connection->prepare($query);
               $statement->execute();
 
@@ -102,5 +103,11 @@
   </div>
   <!-- Bootstrap core JavaScript -->
  <?php include('footer.php');?>
+ <script>
+$(document).ready( function () {
+    $('#course').DataTable();
+    $('#event').DataTable();
+} );
+</script>
 </body>
 </html>

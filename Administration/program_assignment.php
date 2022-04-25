@@ -100,7 +100,6 @@
         <tr>
           <th>Student</th>
           <th>Program</th>
-          <th>Action</th>
           </tr>
         </thead>
           <tbody>
@@ -114,7 +113,6 @@
                 echo "<tr>";
                 echo "<td>".$row['firstname']." ".$row['middlename']." ".$row['lastname']."</td>";
                 echo "<td>".$row['program_code']."</td>";
-                echo "<td><a href='' target='_blank'>View Info</a></td>";
                 echo "</tr>";
               }
             ?>

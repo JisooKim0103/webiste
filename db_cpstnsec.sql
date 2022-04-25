@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2022 at 09:44 PM
+-- Generation Time: Apr 26, 2022 at 01:35 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -53,10 +53,17 @@ INSERT INTO `assignment` (`assignment_id`, `title`, `description`, `faculty_id`,
 CREATE TABLE `assignment_submission` (
   `submission_id` int(11) NOT NULL,
   `assignment_id` int(11) NOT NULL,
-  `student_email` varchar(75) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `submission_link` text NOT NULL,
   `submission_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `assignment_submission`
+--
+
+INSERT INTO `assignment_submission` (`submission_id`, `assignment_id`, `student_id`, `submission_link`, `submission_date`) VALUES
+(1, 1, 2, 'https://www.google.com', '2022-04-26 06:50:52');
 
 -- --------------------------------------------------------
 
@@ -611,7 +618,7 @@ ALTER TABLE `assignment`
 -- AUTO_INCREMENT for table `assignment_submission`
 --
 ALTER TABLE `assignment_submission`
-  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `course`

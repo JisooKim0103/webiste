@@ -91,12 +91,12 @@ if(isset($_POST['btnSubmitAssignment']))
     $AssignmentLink = $_POST['txtAttachmentLink'];
     $SubmittedBy = $_SESSION['logged_student'];
   
-    $query = "INSERT INTO `assignment_submission`(`assignment_id`, `student_email`, `submission_link`, `submission_date`)";
-    $query .= "VALUES (:assignid, :email, :link, now());";
+    $query = "INSERT INTO `assignment_submission`(`assignment_id`, `student_id`, `submission_link`, `submission_date`)";
+    $query .= "VALUES (:assignid, :studid, :link, now());";
     $statement=$connection->prepare($query);
     $statement->execute(array(
       ":assignid" => $AssignmentID,
-      ":email" => $SubmittedBy,
+      ":studid" => $ID,
       ":link" => $AssignmentLink
     ));
   

@@ -83,7 +83,7 @@
     </thead>
     <tbody>
       <?php
-          $query = "SELECT * from schoolevent;";
+          $query = "SELECT * from schoolevent where event_date >= curdate();";
           $statement = $connection->prepare($query);
           $statement->execute();
 

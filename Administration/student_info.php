@@ -33,7 +33,7 @@ if(empty($_GET))
     <?php
         $statement = $connection->prepare("SELECT 
         student.firstname, student.middlename, student.lastname,
-        student.program_id, student.class_id, student_credential.student_password
+        student.program_id,  student_credential.student_password
         from `student_credential` 
         inner join `student` on
           student.student_id = student_credential.student_logid
