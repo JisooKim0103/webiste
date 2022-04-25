@@ -32,8 +32,9 @@ include("../db/database.php");
             <th></th>
             <th></th>
          </tr>
+            
             <tr>
-               <td>Student ID</td>
+               <td>Student Email</td>
                <td><input type="text" name="loginID" class="form-control mb-5 mt-5 ml-5" required="true"/></td>
             </tr>  
             <tr>
@@ -41,8 +42,12 @@ include("../db/database.php");
                <td><input type="password" name="loginPassword" class="form-control ml-5" required="true"/></td>
             </tr>
             <tr>
+               <td>Student ID</td>
+               <td><input type="password" name="studentID" class="form-control mb-5 mt-5 ml-5" required="true"/></td>
+            </tr> 
+            <tr>
                <td></td>
-               <td><button type="submit" class="btn btn-info mt-5 ml-5" name="btnLogin"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button></td>
+               <td><button type="submit" class="btn btn-info " name="btnLogin"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button></td>
             </tr>
          </table>    
          </form> 
@@ -62,12 +67,14 @@ if(isset($_POST['btnLogin']))
    try{
       $LoginID = $_POST['loginID'];
       $LoginPassword = $_POST['loginPassword'];
-      $query = "SELECT COUNT(student_code) from student_credential where student_code = :uname and student_password = :pword;";
+      $StudentID = $_POST['studentID'];
+      $query = "SELECT COUNT(student_code) from student_credential where student_code = :uname and student_password = :pword and student_id=:id;";
       $statement = $connection->prepare($query);
    
       $statement->execute(array(
          ":uname" => $LoginID,
-         ":pword" => $LoginPassword
+         ":pword" => $LoginPassword,
+         ":id" => $StudentID
       ));
    
       $result = $statement->fetchColumn();
