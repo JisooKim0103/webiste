@@ -18,7 +18,7 @@
 
 <body>
   <?php 
-  //ob_start();
+  ob_start();
   include('session.php');
   include('header.php');
   include("../db/database.php");
@@ -33,9 +33,11 @@
   <div class="row">
   <!-- Add Class Assignment -->
     <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5" >
-   
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Class</h2>
+        <div class="form-group">
+        <a href="faculty_assignment.php" class="btn btn-info">Faculty Course Assignment</a>
+        </div>
         <label>Student</label>
         <div class="form-group">
             <select name="cmbStudent" class="form-control" style="width:60%" required>
