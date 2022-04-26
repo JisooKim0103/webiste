@@ -122,8 +122,8 @@ if(isset($_POST['btnRegisterFaculty']))
   
       if($Password1==$Password2)
       {
-        $query = "INSERT INTO `faculty`(`firstname`, `middlename`, `lastname`, `department`, `date_created`)";
-        $query .= "VALUES (:fname, :mname, :lname, :deptid, now());";
+        $query = "INSERT INTO `faculty`(`firstname`, `middlename`, `lastname`, `department`, `program_id`, `date_created`)";
+        $query .= "VALUES (:fname, :mname, :lname, :deptid, :deptid, now());";
         $statement = $connection->prepare($query);
         $statement->execute(array(
             ":fname" => $FirstName,

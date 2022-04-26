@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2022 at 01:35 AM
+-- Generation Time: Apr 26, 2022 at 10:29 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -310,7 +310,10 @@ CREATE TABLE `course_handled` (
 --
 
 INSERT INTO `course_handled` (`course_handling_id`, `course_id`, `faculty_id`, `date_create`) VALUES
-(1, 1, 1, '2022-04-26 03:02:28');
+(1, 1, 1, '2022-04-26 03:02:28'),
+(2, 161, 3, '2022-04-26 16:25:30'),
+(3, 60, 2, '2022-04-26 16:26:49'),
+(4, 109, 4, '2022-04-26 16:29:00');
 
 -- --------------------------------------------------------
 
@@ -370,7 +373,10 @@ CREATE TABLE `faculty` (
 --
 
 INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `program_id`, `date_created`) VALUES
-(1, 'John', 'L', 'Daugherty', 5, 1, '2022-04-20 02:56:55');
+(1, 'John', 'L', 'Daugherty', 5, 5, '2022-04-20 02:56:55'),
+(2, 'Lord', 'of', 'D', 2, 2, '2022-04-26 16:19:00'),
+(3, 'John Orvine', 'Les', 'Mayer', 4, 4, '2022-04-26 16:24:50'),
+(4, 'Lisa', '', 'Manoban', 3, 3, '2022-04-26 16:28:30');
 
 -- --------------------------------------------------------
 
@@ -390,7 +396,10 @@ CREATE TABLE `faculty_credential` (
 --
 
 INSERT INTO `faculty_credential` (`faculty_logid`, `faculty_code`, `faculty_password`, `faculty_id`) VALUES
-(1, 'jldaught@sec.edu.ph', 'Password123!', '112123');
+(1, 'jldaught@sec.edu.ph', 'Password123!', '112123'),
+(2, 'lordofd@gmail.com', 'Password123!', '22232'),
+(3, 'jolm@gmail.com', 'Password123!', '00123'),
+(4, 'lisa.manoban@sec.edu.ph', 'Password123!', '123321');
 
 -- --------------------------------------------------------
 
@@ -630,7 +639,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `course_handled`
 --
 ALTER TABLE `course_handled`
-  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `enrollmentlist`
@@ -642,13 +651,13 @@ ALTER TABLE `enrollmentlist`
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-  MODIFY `faculty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `faculty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_credential`
 --
 ALTER TABLE `faculty_credential`
-  MODIFY `faculty_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `faculty_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `program`
