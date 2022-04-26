@@ -58,6 +58,16 @@
       </div>
       </div>
       
+      <div class="row fixed-bottom mb-5">
+        <div class="mx-auto">
+        <a href="mission.php" class="btn btn-info" ><i class="fas fa-clipboard-list"></i>&nbsp;Mission</a>
+        <a href="vision.php" class="btn btn-info" ><i class="fas fa-eye"></i>&nbsp;Vision</a>
+        <a href="purpose.php" class="btn btn-info" ><i class="fas fa-brain"></i>&nbsp;Purpose</a>
+       <a href="faqs.php" class="btn btn-info"><i class="fas fa-question-circle"></i>&nbsp;FAQs</a>
+
+        </div>
+        
+      </div>
   </div>
 
   <!-- Bootstrap core JavaScript -->
