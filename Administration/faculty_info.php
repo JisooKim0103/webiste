@@ -47,7 +47,6 @@ if(empty($_GET))
             echo "<input type='text' class='form-control' style='width:100%;' name='FirstName' value='".$row['firstname']."' required placeholder='Enter First Name'><br>";
             echo "<input type='text' class='form-control' style='width:100%;' name='MiddleName' value='".$row['middlename']."' placeholder='Enter Middle Name'/><br>";
             echo "<input type='text' class='form-control' style='width:100%;' name='LastName' value='".$row['lastname']."' required placeholder='Enter Last Name'/><br>";
-            echo "<input type='password' class='form-control' style='width:100%;' name='OriginalPassword' value='".$row['faculty_password']."' readonly required placeholder='Enter Original Password'/><br>";
         }
         $program_query = "SELECT * from `program`;";
          $program_query_statement = $connection->prepare($program_query);
@@ -61,18 +60,42 @@ if(empty($_GET))
          }
          echo "</select><br/>";
     ?>
+    <div class="text-center">
+      <button type="button" class="btn btn-outline-primary" onclick="flipPanel()">Update Account</button>
+    </div>
+    <br/>
+    <div id="updatePanel">  
+    <input type="password" class="form-control" style="width:100%;" name="OriginalPassword" required placeholder="Enter Original Password"/><br/>
       <input type="password" class="form-control" name="Password1" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
               title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Enter New Password'/><br/>
       <input type="password" class="form-control" name="Password2" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
               title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Re-type new Password'/><br/>
       <button name="btnUpdate" type="submit" class="btn btn-info" style="width:100%;"><i class="fas fa-pen-alt"></i>&nbsp;Update Info</button>
-      </form>
+      </div>  
+    </form>
 
     </div>
     <div class = "col-md-3"></div>
     </div>
  </div>
  <?php include('footer.php');?>
+ <script>
+   updatePanel.style.visibility="hidden";
+   let flipper = false;
+   console.log(flipper);
+   function flipPanel()
+   {
+      flipper = !flipper;
+      if(flipper)
+      {
+        updatePanel.style.visibility="visible";
+        console.log(`${flipper} after visible`);
+      }else{
+        updatePanel.style.visibility="hidden";
+        console.log(`${flipper} after hidden`);
+      }
+   }
+ </script>
 </body>
 </html>
 <?php

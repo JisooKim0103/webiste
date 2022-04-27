@@ -36,7 +36,7 @@
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Class</h2>
         <div class="form-group">
-        <a href="faculty_assignment.php" class="btn btn-info">Faculty Course Assignment</a>
+        <a href="faculty_assignment.php" class="btn btn-outline-info"><i class="fas fa-chalkboard-teacher"></i>&nbsp;Faculty Course Assignment</a>
         </div>
         <label>Student</label>
         <div class="form-group">

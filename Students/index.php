@@ -12,6 +12,7 @@
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/general.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -40,68 +41,81 @@
     <img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" height="100" width="100" class = "img-fluid rounded"/>
   </div>
 
-  <h2>Currently Enrolled Course(s):</h2>  
-  <div id="schedule"  style="height: 100px; overflow: auto">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Course</th>
-        <th>Course Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-        $query="SELECT course.course_code, course.course_description, program.program_code FROM `course`
-        INNER JOIN `enrollmentlist`ON course.course_id = enrollmentlist.class_id
-        INNER JOIN `program` ON program.program_id = enrollmentlist.program_id
-        WHERE enrollmentlist.student_id = :id;";
-        $statement = $connection->prepare($query);
-        $statement->execute(array(
-          ":id" => $ID
-        ));
-        
-        foreach($statement as $row)
-        {
-          echo "<tr>
-            <td>".$row['course_code']."</td>
-            <td>".$row['course_description']."/ <b>".$row['program_code']."</b></td>
-          </tr>";
-        }
-      ?>
-    </tbody>
-  </table>  
-</div>
-
-<h2>Event(s):</h2>
-<div id="events" style="height: 100px; overflow: auto">
-  <table class="table" >
-    <thead>
-      <tr>
-        <th>Event</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-          $query = "SELECT * from schoolevent where event_date >= curdate();";
+  <div class="row">
+    <div class="col-md-6">
+    <h2>Currently Enrolled Course(s):</h2>  
+    <div id="schedule">
+    <table id="courseTable" class="table">
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Course Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          $query="SELECT course.course_code, course.course_description, program.program_code FROM `course`
+          INNER JOIN `enrollmentlist`ON course.course_id = enrollmentlist.class_id
+          INNER JOIN `program` ON program.program_id = enrollmentlist.program_id
+          WHERE enrollmentlist.student_id = :id;";
           $statement = $connection->prepare($query);
-          $statement->execute();
-
+          $statement->execute(array(
+            ":id" => $ID
+          ));
+          
           foreach($statement as $row)
           {
             echo "<tr>
-                <td>".$row['event_name']."</td>
-                <td>".$row['event_date']."</td>
+              <td>".$row['course_code']."</td>
+              <td>".$row['course_description']."/ <b>".$row['program_code']."</b></td>
             </tr>";
           }
-      ?>
-    </tbody>
-  </table>  
-</div>
+        ?>
+      </tbody>
+    </table>  
+  </div>
+    </div>
+    <div class="col-md-6">
+    <h2>Event(s):</h2>
+      <div id="events">
+        <table id="eventTable" class="table" >
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+                $query = "SELECT * from schoolevent where event_date >= curdate();";
+                $statement = $connection->prepare($query);
+                $statement->execute();
+
+                foreach($statement as $row)
+                {
+                  echo "<tr>
+                      <td>".$row['event_name']."</td>
+                      <td>".$row['event_date']."</td>
+                  </tr>";
+                }
+            ?>
+          </tbody>
+        </table>  
+      </div>
+    </div>
+  </div>
+
+
 
       
   </div>
   <!-- Bootstrap core JavaScript -->
  <?php include('footer.php');?>
+ <script>
+$(document).ready( function () {
+    $('#courseTable').DataTable();
+    $('#eventTable').DataTable();
+} );
+</script>
 </body>
 </html>
