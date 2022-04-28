@@ -9,6 +9,7 @@
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/general.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 <body>
 <?php 
@@ -25,8 +26,7 @@ if(empty($_GET))
  <!-- Page Content -->
  <div class="container-fluid">
     <div class = "row">
-    <div class = "col-md-3"></div>
-    <div class = "col-md-6">
+    <div class = "col-md-4">
     
     <form class="form-group" method="post">
     <h2 class = "text-center"><i class="fas fa-user-cog"></i>&nbsp;Faculty Info</h2><hr style="width:100%"/>
@@ -75,10 +75,42 @@ if(empty($_GET))
     </form>
 
     </div>
-    <div class = "col-md-3"></div>
+    <div class="col-md-8">
+      <h1>Courses Handled</h1>
+      <table id="courseHandledTable" class="table">
+        <thead>
+          <tr>
+            <th>Course Handled</th>
+            <th>Program name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            $query = "SELECT course.course_code, course.course_description, program.program_code from `course`
+            inner join `course_handled` on course.course_id = course_handled.course_id
+            inner join `program` on course.program_id = program.program_id
+            WHERE course_handled.faculty_id = :id";
+            $statement = $connection->prepare($query);
+            $statement->execute([":id"=> $_GET['userid']]);
+            foreach($statement as $row)
+            {
+              echo "<tr>
+                <td>".$row['course_code']."/".$row['course_description']."</td>
+                <td>".$row['program_code']."</td>
+              </tr>";
+            }
+          ?>
+        </tbody>
+      </table>
+    </div>
     </div>
  </div>
  <?php include('footer.php');?>
+ <script>
+$(document).ready( function () {
+    $('#courseHandledTable').DataTable();
+} );
+</script>
  <script>
    updatePanel.style.visibility="hidden";
    let flipper = false;

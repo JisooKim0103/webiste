@@ -8,7 +8,7 @@
     <div class="container">
       <a class="navbar-brand text-info" href="index.php" >
       <img src = "http://southeastern.com.ph/img/logo.png" height="50"/>
-      <b>SEC School Management Admin</b>
+      <b>SEC School Management Admin <br/>Logged as: <?php echo $_SESSION['logged_admin']; ?></b>
       </a>
       <button class="navbar-toggler bg-info" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

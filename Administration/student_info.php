@@ -25,8 +25,7 @@ if(empty($_GET))
  <!-- Page Content -->
  <div class="container-fluid">
     <div class = "row">
-    <div class = "col-md-3"></div>
-    <div class = "col-md-6">
+    <div class = "col-md-4">
     
     <form class="form-group" method="post">
     <h2 class = "text-center"><i class="fas fa-user-cog"></i>&nbsp;Student Info</h2><hr style="width:100%"/>
@@ -76,7 +75,36 @@ if(empty($_GET))
         </div>
     </form>
     </div>
-    <div class = "col-md-3"></div>
+    <div class = "col-md-8">
+    <h1>Courses Enrolled</h1>  
+    <table class="table" id="studentEnrolledTable">
+      <thead>
+          <tr>
+            <th>Course enrolled</th>
+            <th>Instructor Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            $query = "SELECT course.course_code, course.course_description, faculty.firstname, faculty.lastname from `course` 
+            inner join `enrollmentlist` on course.course_id = enrollmentlist.class_id 
+            inner join `course_handled` on course.course_id = course_handled.course_id 
+            inner join `program` on course.program_id = program.program_id 
+            inner join `faculty` on faculty.faculty_id = course_handled.faculty_id 
+            WHERE enrollmentlist.student_id = :id";
+            $statement = $connection->prepare($query);
+            $statement->execute([":id"=> $_GET['userid']]);
+            foreach($statement as $row)
+            {
+              echo "<tr>
+                <td>".$row['course_code']."/".$row['course_description']."</td>
+                <td>".$row['lastname'].", ".$row['firstname']."</td>
+              </tr>";
+            }
+          ?>
+        </tbody>
+      </table>
+    </div>
     </div>
  </div>
  <?php include('footer.php');?>
