@@ -61,7 +61,7 @@ if(isset($_POST['btnUpdate']))
        ":pword" => $NewPassword1,
        ":uname" => $_SESSION['logged_admin']
      ));
-     echo "Password updated";
+     echo "<script>alert(`Password updated!`);</script>";
      header("refresh:3; url=index.php");
     }else{
      echo "Password does not match!";

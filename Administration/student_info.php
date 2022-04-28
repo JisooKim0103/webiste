@@ -167,7 +167,7 @@ if(isset($_POST['btnUpdate']))
           ":programid" => $ProgramID,
           ":uname" => $UserName
         ));
-        echo "<h3 class='text-center text-success'>Student credentials Updated!</h3>";
+        echo "<script>alert(`Student updated!`);</script>";
         header("refresh:3; url = student.php");
       }catch(Exception $e)
       {

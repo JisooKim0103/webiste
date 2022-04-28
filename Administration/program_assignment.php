@@ -38,6 +38,9 @@
         <div class="form-group">
         <a href="faculty_assignment.php" class="btn btn-outline-info"><i class="fas fa-chalkboard-teacher"></i>&nbsp;Faculty Course Assignment</a>
         </div>
+        <div class="form-group">
+          <a href="individual_assignment.php" class="btn btn-outline-secondary"><i class="fas fa-chalkboard-teacher"></i>&nbsp;Individual Student Assignment</a>
+        </div>
         <label>Student</label>
         <div class="form-group">
             <select name="cmbStudent" class="form-control" style="width:60%" required>
@@ -170,7 +173,7 @@ if(isset($_POST['btnRegisterClass']))
      ));
    }
  
-  echo "Student enrolled!";
+  echo "<script>alert(`Student enrolled!`);</script>";
   header("refresh: 5; url = index.php");
   }catch(PDOException $e)
   {

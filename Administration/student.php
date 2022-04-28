@@ -42,7 +42,7 @@
         <input type="text" name="LastName" class="form-control" placeholder="Last Name" style="width:60%;" required/> </br>
         <input type="email" name="UserName" class="form-control" placeholder="SEC email address" style="width:60%;" required/> </br>
         <select name = "cmbDepartment" required = "true" class = "form-control"  style="width:60%;">
-        <option value = "">Select Department</option>
+        <option value = "">Select Program</option>
         <?php
           $statement = $connection->prepare("SELECT * from program;");
           $statement->execute();
@@ -52,12 +52,6 @@
           }
         ?>
         </select><br/>
-        <input type="password" name="Password1" class="form-control" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
-        title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" placeholder="Enter Password" style="width:60%;" required/> </br>
-        <input type="password" name="Password2" class="form-control" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
-        title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" placeholder="Re-enter Password" style="width:60%;"required/> </br>
-        <!-- <label>Attach signature: <i>Must be in a .PNG format</i></label><br/> -->
-        <!-- <input type="file" name="signature_file" class="form-control" style="width:60%;" required/></br> -->
         <button type="submit" name="btnRegisterFaculty" style="width:60%;" class="btn btn-info">
         <i class="fas fa-user-plus"></i>&nbsp;Add User
         </button>
@@ -114,13 +108,9 @@ if(isset($_POST['btnRegisterFaculty']))
   $MiddleName = $_POST['MiddleName'];
   $LastName = $_POST['LastName'];
   $UserName = $_POST['UserName'];
-  $Password1 = $_POST['Password1'];
-  $Password2 = $_POST['Password2'];
   $SchoolID = $_POST['SchoolID'];
   $ProgramID = $_POST['cmbDepartment'];
   try{
-      if($Password1==$Password2)
-      {
         $query = "INSERT INTO `student`(`firstname`, `middlename`, `lastname`, `program_id`, `date_created`)";
         $query .= "VALUES (:fname, :mname, :lname, :program_id, now());";
         $statement = $connection->prepare($query);
@@ -136,15 +126,13 @@ if(isset($_POST['btnRegisterFaculty']))
         $statement_second = $connection->prepare($query_second);
         $statement_second->execute(array(
           ":uname" => $UserName,
-          ":upass" => $Password1,
+          ":upass" => $SchoolID,
           ":uid" => $SchoolID
         ));
     
         echo "<script>alert(`Student Registered!`);</script>";
         header("refresh: 5; url = student.php");
-      }else{
-       echo "<script>alert(`Password does not match!`);</script>";
-      } 
+
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

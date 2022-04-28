@@ -52,11 +52,6 @@
          }
         ?>
         </select><br/>
-        <input type="password" name="Password1" class="form-control" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
-        title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character"
-        placeholder="Enter Password" style="width:60%;" required/> </br>
-        <input type="password" name="Password2" class="form-control" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
-        title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" placeholder="Re-enter Password" style="width:60%;"required/> </br>
         <button type="submit" name="btnRegisterFaculty" style="width:60%;" class="btn btn-info">
         <i class="fas fa-user-plus"></i>&nbsp;Add Faculty
         </button>
@@ -113,15 +108,11 @@ if(isset($_POST['btnRegisterFaculty']))
   $MiddleName = $_POST['MiddleName'];
   $LastName = $_POST['LastName'];
   $UserName = $_POST['UserName'];
-  $Password1 = $_POST['Password1'];
-  $Password2 = $_POST['Password2'];
   $DeptID = $_POST['cmbDepartment'];
   $SchoolID = $_POST['SchoolID'];
 
   try{
-  
-      if($Password1==$Password2)
-      {
+
         $query = "INSERT INTO `faculty`(`firstname`, `middlename`, `lastname`, `department`, `program_id`, `date_created`)";
         $query .= "VALUES (:fname, :mname, :lname, :deptid, :deptid, now());";
         $statement = $connection->prepare($query);
@@ -137,16 +128,14 @@ if(isset($_POST['btnRegisterFaculty']))
         $statement_second = $connection->prepare($query_second);
         $statement_second->execute(array(
           ":uname" => $UserName,
-          ":upass" => $Password1,
+          ":upass" => $SchoolID,
           ":uid" => $SchoolID
         ));
 
-        echo "<script>alert(`Faculty Registered!`);</script>";
+        echo "<script>alert(`Faculty added!`);</script>";
     
         header("refresh: 5; url = faculty.php");
-      }else{
-       echo "<script>alert(`Password does not match!`);</script>";
-      }
+      
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

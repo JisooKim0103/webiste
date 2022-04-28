@@ -27,49 +27,46 @@
   <!-- Page Content -->
   <div class="container-fluid">
  
-  <h1 class = "text-center"><i class="fas fa-chalkboard-teacher"></i>&nbsp;Faculty Assignment</h1>
+  <h1 class = "text-center"><i class="fas fa-graduation-cap"></i>&nbsp;Individual Class Assignment</h1>
   <hr/>
 
   <div class="row">
   <!-- Add Class Assignment -->
     <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5" >
-   
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Class</h2>
-        <label>Faculty</label>
+        <label>Student</label>
         <div class="form-group">
-            <select name="cmbFaculty" class="form-control" style="width:60%" required>
-                <option value="">Select Faculty</option>
+            <select name="cmbStudent" class="form-control" style="width:60%" required>
+                <option value="">Select Student</option>
                 <?php
-                    $facultyQuery="SELECT faculty.faculty_id, faculty.firstname, faculty.middlename, faculty.lastname, program.program_description from `faculty`
-                    INNER JOIN  `program` on faculty.program_id = program.program_id;";
-                    $facultyQueryStatement = $connection->prepare($facultyQuery);
-                    $facultyQueryStatement->execute();
-                    foreach($facultyQueryStatement as $row)
+                    $studentQuery="SELECT student.student_id, student.firstname, student.middlename, student.lastname from `student`;";
+                    $studentQueryStatement = $connection->prepare($studentQuery);
+                    $studentQueryStatement->execute();
+                    foreach($studentQueryStatement as $row)
                     {
-                        echo "<option value='".$row['faculty_id']."'>".$row['firstname']." ".$row['lastname']."/".$row['program_description']."</option>";
+                        echo "<option value='".$row['student_id']."'>".$row['firstname']." ".$row['lastname']."</option>";
                     }
                 ?>
             </select>
         </div>
-        <label>Course</label>
+        <label>Courses</label>
         <div class="form-group">
-            <select name="cmbCourse" class="form-control" style="width:60%" required>
+            <select name="cmbCourse" id="course" class="form-control" style="width:60%" required>
                 <option value="">Select Course</option>
                 <?php
-                    $programQuery="SELECT course.course_id, course.course_code, program.program_code from `course`
-                    INNER JOIN `program` ON course.program_id = program.program_id;";
+                    $programQuery="SELECT course.course_id, course.course_code, course.course_description from `course`;";
                     $programQueryStatement = $connection->prepare($programQuery);
                     $programQueryStatement->execute();
                     foreach($programQueryStatement as $row)
                     {
-                        echo "<option value='".$row['course_id']."'>".$row['course_code']."/".$row['program_code']."</option>";
+                        echo "<option value='".$row['course_id']."'>".$row['course_code']." - ".$row['course_description']."</option>";
                     }
                 ?>
             </select>
         </div>
         <button type="submit" name="btnRegisterClass" style="width:60%;" class="btn btn-info">
-        <i class="fas fa-user-plus"></i>&nbsp;Assign Course
+        <i class="fas fa-user-plus"></i>&nbsp;Add Class
         </button>
       </form>
       <div class="form-group mt-3">
@@ -78,19 +75,18 @@
         </button>
 
         <form class="form-group" id="updatePanel" method="post">
-        <h2>Update Instructor's Class</h2>
+        <h2>Update Class</h2>
           <label>Select Student</label>
             <div class="form-group">
-              <select name="cmbFaculty" class="form-control" style="width:60%" required>
-                  <option value="">Select Instructor</option>
+              <select name="cmbStudent" class="form-control" style="width:60%" required>
+                  <option value="">Select Student</option>
                   <?php
-                      $query="SELECT faculty.faculty_id, faculty.firstname, faculty.middlename, faculty.lastname, program.program_description from `faculty`
-                      INNER JOIN  `program` on faculty.program_id = program.program_id;";
-                      $statement = $connection->prepare($query);
-                      $statement->execute();
-                      foreach($statement as $row)
+                      $studentQuery="SELECT student.student_id, student.firstname, student.middlename, student.lastname from `student`;";
+                      $studentQueryStatement = $connection->prepare($studentQuery);
+                      $studentQueryStatement->execute();
+                      foreach($studentQueryStatement as $row)
                       {
-                          echo "<option value='".$row['faculty_id']."'>".$row['firstname']." ".$row['lastname']."</option>";
+                          echo "<option value='".$row['student_id']."'>".$row['firstname']." ".$row['lastname']."</option>";
                       }
                   ?>
               </select>
@@ -113,7 +109,7 @@
             <label>New Course</label>
             <div class="form-group">
               <select name="cmbNewCourse" id="replaceCourse" class="form-control" style="width:60%" required>
-                  <option value="">Select New Course</option>
+                  <option value="">Select new Course</option>
                   <?php
                       $programQuery="SELECT course.course_id, course.course_code, course.course_description from `course`;";
                       $programQueryStatement = $connection->prepare($programQuery);
@@ -126,35 +122,38 @@
             </select>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-warning" style="width: 60%;" name="btnUpdateCourseHandled">&nbsp;Update Course Assignment</button>
+              <button type="submit" class="btn btn-warning" style="width: 60%;" name="btnUpdateCourseAssignment">&nbsp;Update Course Assignment</button>
             </div>
         </form>
       </div>
+      
     </div>
-    
-    
     <!-- Faculty Table -->
     <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
     <div class="table-responsive">
         <table class="table table-boredered" id = "table">
         <thead>
         <tr>
-          <th>Faculty</th>
-          <th>Courses</th>
+          <th>Program</th>
+          <th>Student</th>
+          <th>Course</th>
           </tr>
         </thead>
           <tbody>
             <?php
-              $statement = $connection->prepare("SELECT faculty.firstname, faculty.middlename, faculty.lastname,  course.course_code, program.program_code FROM `course_handled` 
-              inner join `course` on course_handled.course_id = course.course_id
-              inner join `faculty`   on faculty.faculty_id = course_handled.faculty_id
-              inner join `program` on course.program_id = program.program_id;");
+              $statement = $connection->prepare("SELECT program.program_code, student.firstname, student.middlename, student.lastname, course.course_code 
+              from `enrollmentlist`
+              inner join `course` on enrollmentlist.class_id = course.course_id
+              inner join `student` on student.student_id = enrollmentlist.student_id
+              inner join `program` on enrollmentlist.program_id = program.program_id
+              ;");
               $statement->execute();
               foreach($statement as $row)
               {
                 echo "<tr>";
+                echo "<td>".$row['program_code']."</td>";
                 echo "<td>".$row['firstname']." ".$row['middlename']." ".$row['lastname']."</td>";
-                echo "<td>".$row['course_code']."/".$row['program_code']."</td>";
+                echo "<td>".$row['course_code']."</td>";
                 echo "</tr>";
               }
             ?>
@@ -194,36 +193,44 @@ $(document).ready( function () {
 if(isset($_POST['btnRegisterClass']))
 {
   try{
-    $Faculty = $_POST['cmbFaculty'];
-    $Course = $_POST['cmbCourse'];
-
-    $sqlQuery = "INSERT INTO `course_handled`(`course_id`, `faculty_id`, `date_create`) VALUES (:cid, :fid, now());";
-    $statement = $connection->prepare($sqlQuery);
-    $statement->execute([":cid" => $Course, ":fid" => $Faculty]);
-
-    echo "<script>alert(`Faculty assigned!`);</script>";
-    header("refresh: 5; url = index.php");
+    $ID = $_POST['cmbStudent'];
+    $CourseID = $_POST['cmbCourse'];
+    $query = "SELECT student.program_id FROM `student` WHERE student.student_id = :id LIMIT 1;";
+    $statement = $connection->prepare($query);
+    $statement->execute([":id" => $ID]);
+ 
+    foreach($statement as $row)
+    {
+      $ProgramID = $row['program_id'];
+      $insertQuery = "INSERT INTO `enrollmentlist` (`student_id`, `program_id`, `class_id`, `academic_year`) VALUES (:studid, :pid, :cid, year(curdate()));";
+      $insertClassQuery = $connection->prepare($insertQuery);
+      $insertClassQuery->execute(array(
+        ":studid" => $ID,
+       ":pid" => $ProgramID,
+       ":cid" => $CourseID
+      ));
+    }
+  echo "<script>alert(`Student enrolled!`);</script>";
+  header("refresh: 5; url = index.php");
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();
   }catch(Exception $e)
   {
     $e->getMessage();
-  }
-
-  
-}elseif(isset($_POST['btnUpdateCourseHandled']))
+  } 
+}elseif(isset($_POST['btnUpdateCourseAssignment']))
 {
   $OldCourse = $_POST['cmbOldCourse'];
   $NewCourse = $_POST['cmbNewCourse'];
-  $ID = $_POST['cmbFaculty'];
+  $ID = $_POST['cmbStudent'];
   try{
-    $query="UPDATE `course_handled` SET `course_id` = :newclass WHERE course_id = :oldclass AND faculty_id = :facultyid;";
+    $query="UPDATE `enrollmentlist` SET `class_id` = :newclass WHERE class_id = :oldclass AND student_id = :studid;";
     $statement=$connection->prepare($query);
     $statement->execute([
       ":newclass" => $NewCourse,
       ":oldclass" => $OldCourse,
-      ":facultyid" => $ID
+      ":studid" => $ID
     ]);
 
     echo "<script>alert(`Student course updated!`);</script>";

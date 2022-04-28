@@ -106,7 +106,7 @@ if(isset($_POST['btnAddEvent']))
             ":eventdate" => $Date
         ));
 
-        echo "<h1>Event is added!</h1>";
+        echo "<script>alert(`Event Added!`);</script>";
     
         header("refresh: 5; url = events.php");
     
