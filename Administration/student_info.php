@@ -9,6 +9,7 @@
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/general.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 <body>
 <?php 
@@ -108,6 +109,11 @@ if(empty($_GET))
     </div>
  </div>
  <?php include('footer.php');?>
+ <script>
+$(document).ready( function () {
+    $('#studentEnrolledTable').DataTable();
+} );
+</script>
  <script>
    updatePanel.style.visibility="hidden";
    let flipper = false;
