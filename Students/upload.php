@@ -13,6 +13,7 @@
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/general.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -38,10 +39,9 @@
 ?>
 
   <!-- Page Content -->
-  <div class="container-fluid center">
+  <div class="container-fluid">
   <div class = "row">
-    <div class = "col-md-4"></div>
-    <div class = "com-md-4">
+    <div class = "col-md-4">
     <h1><i class="fas fa-upload"></i>&nbsp;Upload Assignment</h1>
     <hr/>
     <form method="post" class="form-group" enctype="multipart/form-data">
@@ -62,7 +62,7 @@
           ));
           foreach($assignment_queryStatement as $assignment)
           {
-            echo "<option value='".$assignment['assignment_id']."'>".$assignment['title']."/".$assignment['course_code']."</option>";
+            echo "<option value='".$assignment['assignment_id']."'>".$assignment['title']."-".$assignment['course_code']."</option>";
           }
         ?>
       </select><br/>
@@ -71,7 +71,42 @@
       <button name="btnSubmitAssignment" class="btn btn-info" type="submit">Submit Assignment</button>
     </form>
     </div>
-    <div class = "col-md-4"></div>
+    <div class = "col-md-8">
+      <h1>Assignment Listings</h1>
+          <table id="tableAssignment" class="table">
+            <thead>
+              <tr>
+                <td>Course</td>
+                <td>Instruction</td>
+                <td>Submission Date</td>
+              </tr>
+            </thead>
+            <tbody>
+            <?php
+              $assignment_query = "SELECT 
+                course.course_code, assignment.description, assignment.submission_date  from `assignment` INNER JOIN `enrollmentlist` on
+                assignment.class_id = enrollmentlist.class_id 
+                INNER JOIN `course` on
+                assignment.class_id = course.course_id
+                WHERE enrollmentlist.student_id = :id;
+              ";
+              $assignment_queryStatement = $connection->prepare($assignment_query);
+              $assignment_queryStatement->execute(array(
+                ":id" => $ID
+              ));
+              foreach($assignment_queryStatement as $assignment)
+              {
+                echo "<tr>
+                  <td>".$assignment['course_code']."</td>
+                  <td>".$assignment['description']."</td>
+                  <td>".$assignment['submission_date']."</td>
+                </tr>";
+              }
+            ?>
+            </tbody>
+          </table>
+
+    </div>
   </div>
 
   
@@ -80,7 +115,11 @@
 
   <!-- Bootstrap core JavaScript -->
   <?php include('footer.php');?>
-
+  <script>
+$(document).ready( function () {
+    $('#tableAssignment').DataTable();
+} );
+</script>
 </body>
 </html>
 <?php

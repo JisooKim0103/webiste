@@ -39,6 +39,20 @@
 
   <div class = "text-center">
     <img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" height="100" width="100" class = "img-fluid rounded"/>
+    <?php
+            $query = "SELECT count(assignment_id) as `assign_count` from `assignment`
+            inner join `enrollmentlist` on enrollmentlist.class_id = assignment.class_id
+            WHERE enrollmentlist.student_id = :id";
+            $statement=$connection->prepare($query);
+            $statement->execute([":id"=>$ID]);
+            foreach($statement as $row)
+            {
+              if($row['assign_count'] >= 1)
+              {
+                echo "<h2 class='text-warning'>Assignment Notice(s):".$row['assign_count']."</h2>";
+              }
+            }
+    ?>
   </div>
 
   <div class="row">
