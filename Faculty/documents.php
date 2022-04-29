@@ -34,12 +34,38 @@
 
   <!-- Page Content -->
   <div class="container-fluid">
-
-  <div class = "text-center">
-    <img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" height="100px" width="100px" class = "img-fluid rounded"/>
-  </div>
   <h2>Student(s) Submission</h2>
-  <table id="table" class="table"> 
+  <div class="row">
+    <div class="col-md-4">
+      <form method="post">
+      <label>Select Submission</label>
+      <div class="form-group">
+        <select name="cmbAssignmentID" class="form-control" style="width: 75%">
+          <option value="">Select Submission</option>
+          <?php
+            $query = "SELECT assignment_submission.submission_id, course.course_code, student.firstname, student.lastname, assignment_submission.submission_date FROM `assignment_submission`
+            inner join `student` on assignment_submission.student_id = student.student_id
+            inner join `assignment` on assignment_submission.assignment_id = assignment.assignment_id
+            inner join `course` on assignment.class_id = course.course_id;
+            ";
+            $statement = $connection->prepare($query);
+            $statement->execute();
+            foreach($statement as $row)
+            {
+              echo "<option value='".$row['submission_id']."'><b>".$row['course_code']."</b>, ".$row['lastname'].", ".$row['firstname']." on ".$row['submission_date']."</option>";
+            }
+          ?>
+        </select>
+      </div>
+      <label>Feedback/Comments</label>
+      <div class="form-group">
+        <input type="text" name="txtFeedback" class="form-control" style="width: 75%;" placeholder="Write feedback.."/> 
+      </div>
+      <button type="submit" class="btn btn-info" name="btnWriteFeedback" style="width: 75%;">&nbsp;Write Feedback</button>
+      </form>
+    </div>
+    <div class="col-md-8">
+    <table id="table" class="table"> 
     <thead>
         <tr>
           <th>Date Submitted</th>
@@ -47,12 +73,13 @@
           <th>Course</th>
           <th>Program</th>
           <th>Assignment Link</th>
+          <th>Feedback</th>
         </tr>
     </thead>
     <tbody>
         <?php
           $query = "SELECT student.firstname, student.lastname, assignment_submission.submission_link,
-          assignment_submission.submission_date, course.course_code, program.program_code
+          assignment_submission.submission_date, course.course_code, program.program_code, assignment_submission.feedback
           from `student`
           inner join `assignment_submission` on assignment_submission.student_id = student.student_id
           inner join `assignment` on assignment.assignment_id = assignment_submission.assignment_id
@@ -71,11 +98,15 @@
               <td>".$row['course_code']."</td>
               <td>".$row['program_code']."</td>
               <td><a href='".$row['submission_link']."'>".$row['submission_link']."</a></td>
+              <td>".$row['feedback']."</td>
             </tr>";
           }
         ?>
     </tbody>
-  </table>
+  </table>  
+    </div>
+  </div>
+  
 
      
   </div>
@@ -86,5 +117,26 @@ $(document).ready( function () {
     $('#table').DataTable();
 } );
 </script>
+<?php
+if(isset($_POST['btnWriteFeedback']))
+{
+  try{
+    $AssignmentID = $_POST['cmbAssignmentID'];
+    $Feedback = $_POST['txtFeedback'];
+    $query = "UPDATE `assignment_submission` SET feedback = :feedback WHERE submission_id = :id;";
+    $statement = $connection->prepare($query);
+    $statement->execute([
+      ":feedback" => $Feedback,
+      ":id" => $AssignmentID
+    ]);
+    echo "<script>alert(`Feedback added!`);</script>";
+  }catch(Exception $e)
+  {
+    $e->getMessage();
+  }
+
+}
+?>
+
 </body>
 </html>

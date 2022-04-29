@@ -79,7 +79,7 @@
 
         <form class="form-group" id="updatePanel" method="post">
         <h2>Update Instructor's Class</h2>
-          <label>Select Student</label>
+          <label>Select Instructor</label>
             <div class="form-group">
               <select name="cmbFaculty" class="form-control" style="width:60%" required>
                   <option value="">Select Instructor</option>

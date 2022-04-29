@@ -79,15 +79,16 @@
                 <td>Course</td>
                 <td>Instruction</td>
                 <td>Submission Date</td>
+                <td>Feedback/Comments</td>
               </tr>
             </thead>
             <tbody>
             <?php
               $assignment_query = "SELECT 
-                course.course_code, assignment.description, assignment.submission_date  from `assignment` INNER JOIN `enrollmentlist` on
+                course.course_code, assignment.description, assignment.submission_date, assignment_submission.feedback  from `assignment` INNER JOIN `enrollmentlist` on
                 assignment.class_id = enrollmentlist.class_id 
-                INNER JOIN `course` on
-                assignment.class_id = course.course_id
+                INNER JOIN `course` on assignment.class_id = course.course_id
+                INNER JOIN `assignment_submission` on assignment_submission.assignment_id = assignment.assignment_id
                 WHERE enrollmentlist.student_id = :id;
               ";
               $assignment_queryStatement = $connection->prepare($assignment_query);
@@ -100,6 +101,7 @@
                   <td>".$assignment['course_code']."</td>
                   <td>".$assignment['description']."</td>
                   <td>".$assignment['submission_date']."</td>
+                  <td>".$assignment['feedback']."</td>
                 </tr>";
               }
             ?>
