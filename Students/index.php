@@ -42,7 +42,7 @@
     <?php
             $query = "SELECT count(assignment_id) as `assign_count` from `assignment`
             inner join `enrollmentlist` on enrollmentlist.class_id = assignment.class_id
-            WHERE enrollmentlist.student_id = :id";
+            WHERE enrollmentlist.student_id = :id and assignment.submission_date >= now();";
             $statement=$connection->prepare($query);
             $statement->execute([":id"=>$ID]);
             foreach($statement as $row)

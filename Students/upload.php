@@ -54,8 +54,7 @@
             assignment.class_id = enrollmentlist.class_id 
             INNER JOIN `course` on
             assignment.class_id = course.course_id
-            WHERE enrollmentlist.student_id = :id;
-          ";
+            WHERE enrollmentlist.student_id = :id and assignment.submission_date >= now();";
           $assignment_queryStatement = $connection->prepare($assignment_query);
           $assignment_queryStatement->execute(array(
             ":id" => $ID
