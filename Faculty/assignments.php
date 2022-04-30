@@ -58,22 +58,55 @@
         </select>
     </div>
     <label>Title</label>
-    <div class="form-group">
-        <input type="text" name="txtTitle" class="form-control" placeholder="Enter Assignment title" required/>
+      <div class="form-group">
+          <input type="text" name="txtTitle" class="form-control" placeholder="Enter Assignment title" required/>
       </div>
-      <label>Description</label>
+    <label>Description</label>
       <div class="form-group">
         <input type="text" name="txtDescription" class="form-control" placeholder="Enter Assignment instructions" required/>
       </div>
-      <label>Date of Submission</label>
+    <label>Date of Submission</label>
       <div class="form-group">
         <input type="date" name="txtDateOfSubmission" class="form-control" required/>
       </div> 
     <div class="form-group">
         <button type="submit" name="btnAddAssignment" class="btn btn-info" style="width:100%;"><i class="fas fa-chevron-circle-up"></i>&nbsp;Add Assignment</button>
     </div>
-    
     </form>
+    <!-- Update form   -->
+    <div class="form-group">
+    <button type="button" id="btnShowUpdate" onclick="flipPanel();" class="btn btn-outline-warning" style="width:100%;">
+        <i class="fas fa-exchange-alt"></i>&nbsp;Change Assignment</button>
+    </div>
+    <form method="post" id="updatePanel">
+      <label>Select Assignment</label>
+      <div class="form-group">
+        <select name="cmbAssignmentID" class="form-control">
+          <option value="">Select Assignment</option>
+        <?php
+          $query="SELECT assignment.assignment_id, assignment.title FROM `assignment` INNER JOIN `faculty` on assignment.faculty_id = faculty.faculty_id where faculty.faculty_id=:id;";
+          $statement=$connection->prepare($query);
+          $statement->execute([":id"=>$ID]);
+          foreach($statement as $row)
+          {
+            echo "<option value='".$row['assignment_id']."'>".$row['title']."</option>";
+          }
+        ?>
+        </select>
+      </div>
+      <label>Updated Description</label>
+      <div class="form-group">
+        <input type="text" name="txtUpdateDescription" class="form-control" placeholder="Enter Assignment instructions" required/>
+      </div>
+    <label>Updated Date of Submission</label>
+      <div class="form-group">
+        <input type="date" name="txtUpdateDateOfSubmission" class="form-control" required/>
+      </div> 
+    <div class="form-group">
+      <button type="submit" class="btn btn-warning" style="width: 100%;" name="btnUpdateAssignment"><i class="fas fa-pen-alt"></i>&nbsp;Update Assignment</button>
+    </div>
+    </form>
+    <!--End of Update Form-->
     </div>
     <!-- Second Column -->
     <div class="col-md-8">
@@ -109,6 +142,20 @@
   <!-- Bootstrap core JavaScript -->
   <?php include('footer.php');?>
   <script>
+   updatePanel.style.visibility="hidden";
+   let flipper = false;
+   function flipPanel()
+   {
+      flipper = !flipper;
+      if(flipper)
+      {
+        updatePanel.style.visibility="visible";
+      }else{
+        updatePanel.style.visibility="hidden";
+      }
+   }
+ </script>
+  <script>
 $(document).ready( function () {
     $('#table').DataTable();
 } );
@@ -121,8 +168,6 @@ $(document).ready( function () {
 if(isset($_POST['btnAddAssignment']))
 {
   try{
-    
-     
      $Course = $_POST['cmbCurrentCourse'];
      $Title = $_POST['txtTitle'];
      $Description = $_POST['txtDescription'];
@@ -144,5 +189,27 @@ if(isset($_POST['btnAddAssignment']))
   {
     $e->getMessage();
   } 
+}elseif(isset($_POST['btnUpdateAssignment']))
+{
+  try{
+    $AssigmentID = $_POST['cmbAssignmentID'];
+    $UpdateDescription = $_POST['txtUpdateDescription'];
+    $UpdateSubmissionDate = $_POST['txtUpdateDateOfSubmission'];
+
+    $query = "UPDATE `assignment` SET assignment.description = :assigndesc, assignment.submission_date = :subdate WHERE assignment.assignment_id = :assignid;";
+    $statement = $connection->prepare($query);
+    $statement->execute([
+      ":assigndesc" => $UpdateDescription,
+      ":subdate" => $UpdateSubmissionDate,
+      ":assignid" => $AssigmentID
+    ]);
+
+    echo "<script>alert(`Assignment updated!`);</script>";
+    header("refresh: 3; url = assignments.php");
+
+  }catch(Exception $e)
+  {
+    $e->getMessage();
+  }
 }
 ?>
