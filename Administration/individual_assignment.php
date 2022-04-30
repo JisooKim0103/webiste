@@ -122,8 +122,31 @@
             </select>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-warning" style="width: 60%;" name="btnUpdateCourseAssignment">&nbsp;Update Course Assignment</button>
+              <button type="submit" class="btn btn-warning" style="width: 60%;" name="btnUpdateCourseAssignment"><i class="fas fa-pen-alt"></i>&nbsp;Update Course Assignment</button>
             </div>
+        </form>
+        <form method="post" class="form-group" id="deletePanel">
+          <label>Select Course Assignment to Delete</label>
+          <div class="form-group" >
+            <select class="form-control" name="cmbStudentCourse" style="width: 60%;">
+              <option value="">Select Student</option>
+              <?php
+                $query = "SELECT enrollmentlist.enrollment_id, course.course_code, student.firstname, student.lastname FROM `enrollmentlist`
+                INNER JOIN `course` ON course.course_id = enrollmentlist.class_id
+                INNER JOIN `student` ON enrollmentlist.student_id = student.student_id;";
+                $statement = $connection->prepare($query);
+                $statement->execute();
+
+                 foreach($statement as $row)
+                 {
+                   echo "<option value='".$row['enrollment_id']."'>".$row['course_code']." - ".$row['lastname'].", ".$row['firstname']."</option>";
+                 }
+              ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="submit" name="btnDeleteCourse" class="btn btn-danger" style="width: 60%;"><i class="fas fa-eraser"></i>&nbsp;Delete Course Assignment</button>
+          </div>
         </form>
       </div>
       
@@ -145,8 +168,7 @@
               from `enrollmentlist`
               inner join `course` on enrollmentlist.class_id = course.course_id
               inner join `student` on student.student_id = enrollmentlist.student_id
-              inner join `program` on enrollmentlist.program_id = program.program_id
-              ;");
+              inner join `program` on enrollmentlist.program_id = program.program_id;");
               $statement->execute();
               foreach($statement as $row)
               {
@@ -168,6 +190,7 @@
   <?php include('footer.php');?>
   <script>
    updatePanel.style.visibility="hidden";
+   deletePanel.style.visibility="hidden";
    let flipper = false;
    function flipPanel()
    {
@@ -175,8 +198,10 @@
       if(flipper)
       {
         updatePanel.style.visibility="visible";
+        deletePanel.style.visibility="visible";
       }else{
         updatePanel.style.visibility="hidden";
+        deletePanel.style.visibility="hidden";
       }
    }
  </script>
@@ -234,6 +259,19 @@ if(isset($_POST['btnRegisterClass']))
     ]);
 
     echo "<script>alert(`Student course updated!`);</script>";
+    header("refresh: 3; url = program_assignment.php");
+  }catch(Exception $e)
+  {
+    $e->getMessage();
+  }
+}elseif(isset($_POST['btnDeleteCourse']))
+{
+  try{
+    $EnrollmentID = $_POST['cmbStudentCourse'];
+    $query="DELETE from `enrollmentlist` WHERE enrollmentlist.enrollment_id = :id";
+    $statement=$connection->prepare($query);
+    $statement->execute([":id"=>$EnrollmentID]);
+    echo "<script>alert(`Student Course assignment deleted!`);</script>";
     header("refresh: 3; url = program_assignment.php");
   }catch(Exception $e)
   {
