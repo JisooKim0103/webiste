@@ -128,14 +128,11 @@ if(isset($_POST['btnRegisterFaculty']))
         $statement_second = $connection->prepare($query_second);
         $statement_second->execute(array(
           ":uname" => $UserName,
-          ":upass" => $SchoolID,
+          ":upass" => PASSWORD_HASH($SchoolID, PASSWORD_BCRYPT),
           ":uid" => $SchoolID
         ));
 
-        echo "<script>alert(`Faculty added!`);</script>";
-    
-        header("refresh: 5; url = faculty.php");
-      
+        echo "<script>alert(`Faculty added!`);window.location.href='faculty.php';</script>";
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

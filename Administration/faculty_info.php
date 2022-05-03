@@ -121,10 +121,8 @@ $(document).ready( function () {
       if(flipper)
       {
         updatePanel.style.visibility="visible";
-        console.log(`${flipper} after visible`);
       }else{
         updatePanel.style.visibility="hidden";
-        console.log(`${flipper} after hidden`);
       }
    }
  </script>
@@ -150,7 +148,7 @@ if(isset($_POST['btnUpdate']))
         $query = "UPDATE `faculty_credential` set `faculty_password`= :pword where `faculty_logid` = :uname;";
         $statement = $connection->prepare($query);
         $statement->execute(array(
-            ":pword" => $Password1,
+            ":pword" => PASSWORD_HASH($Password1, PASSWORD_BCRYPT),
             ":uname" => $UserName
         ));
         $updateFacultyStatement = $connection->prepare("UPDATE `faculty` SET  firstname = :fname, middlename = :mname, lastname = :lname,
@@ -162,8 +160,7 @@ if(isset($_POST['btnUpdate']))
           ":programid" => $ProgramID,
           ":uname" => $UserName
         ));
-        echo "<script>alert(`Faculty updated!`);</script>";
-        header("refresh:3; url = faculty.php");
+        echo "<script>alert(`Faculty updated!`); window.location.href='faculty.php';</script>";
       }catch(Exception $e)
       {
         $e->getMessage();

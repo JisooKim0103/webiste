@@ -167,8 +167,7 @@ if(isset($_POST['btnUpdate']))
           ":programid" => $ProgramID,
           ":uname" => $UserName
         ));
-        echo "<script>alert(`Student updated!`);</script>";
-        header("refresh:3; url = student.php");
+        echo "<script>alert(`Student updated!`);window.location.href='student.php';</script>";
       }catch(Exception $e)
       {
         $e->getMessage();

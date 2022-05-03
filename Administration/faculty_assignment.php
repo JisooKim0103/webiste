@@ -226,8 +226,7 @@ if(isset($_POST['btnRegisterClass']))
       ":facultyid" => $ID
     ]);
 
-    echo "<script>alert(`Student course updated!`);</script>";
-    header("refresh: 3; url = program_assignment.php");
+    echo "<script>alert(`Student course updated!`);window.location.href='program_assignment.php';</script>";
   }catch(Exception $e)
   {
     $e->getMessage();

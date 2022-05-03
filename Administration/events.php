@@ -106,11 +106,7 @@ if(isset($_POST['btnAddEvent']))
             ":eventdate" => $Date
         ));
 
-        echo "<script>alert(`Event Added!`);</script>";
-    
-        header("refresh: 5; url = events.php");
-    
-   
+        echo "<script>alert(`Event Added!`); window.location.href='events.php';</script>";
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

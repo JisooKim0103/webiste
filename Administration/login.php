@@ -62,24 +62,27 @@ if(isset($_POST['btnLogin']))
    try{
       $LoginID = $_POST['loginID'];
       $LoginPassword = $_POST['loginPassword'];
-      $query = "SELECT COUNT(admincode) from web_admin where admincode = :uname and adminpass = :pword;";
+      $query = "SELECT `adminpass` from web_admin where admincode = :uname LIMIT 1;";
       $statement = $connection->prepare($query);
    
+     
       $statement->execute(array(
-         ":uname" => $LoginID,
-         ":pword" => $LoginPassword
+         ":uname" => $LoginID
       ));
+      
+      //$result = $statement->fetchColumn();
    
-      $result = $statement->fetchColumn();
-   
-      if($result==1)
+      foreach($statement as $row)
       {
-         $_SESSION['logged_admin'] = $LoginID;
-         echo "<center class='text-success'>Login Sucess! Redirecting in few seconds..</center>";
-         header("refresh:3; url = index.php");
-      }else{
-         echo "<center class = 'text-danger text-center'>Username or Password not found!</center>";
+         if(password_verify($LoginPassword, $row['adminpass'])){
+            $_SESSION['logged_admin'] = $LoginID;
+            echo "<center class='text-success'>Login Sucess! Redirecting in few seconds..</center>";
+            header("refresh:3; url = index.php");
+         }else{
+            echo "<center class = 'text-danger text-center'>Username or Password not found!</center>";
+         }
       }
+     
    }catch(Exception $e)
    {
       $e->getMessage();

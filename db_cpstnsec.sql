@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2022 at 02:40 AM
+-- Generation Time: May 03, 2022 at 10:58 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -374,7 +374,7 @@ INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `dep
 CREATE TABLE `faculty_credential` (
   `faculty_logid` int(11) NOT NULL,
   `faculty_code` varchar(30) NOT NULL,
-  `faculty_password` varchar(32) NOT NULL,
+  `faculty_password` text NOT NULL,
   `faculty_id` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -423,6 +423,16 @@ CREATE TABLE `schoolevent` (
   `event_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `schoolevent`
+--
+
+INSERT INTO `schoolevent` (`event_id`, `event_name`, `event_description`, `event_date`) VALUES
+(1, 'suntukan', 'tayo        ', '2022-05-04'),
+(2, '321', '        321', '2022-05-04'),
+(3, 'oaky', 'okasdasd        ', '2022-05-04'),
+(4, 'd', '        d', '2022-05-05');
+
 -- --------------------------------------------------------
 
 --
@@ -463,7 +473,9 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `program_id`, `date_created`) VALUES
-(1, 'John', 'L', 'Oaramu', 2, '2022-04-29 07:28:35');
+(1, 'John', 'L', 'Oaramu', 2, '2022-04-29 07:28:35'),
+(2, 'John', 'L', 'Amu', 2, '2022-05-04 03:53:51'),
+(3, 'J', 'L', 'A', 3, '2022-05-04 03:57:12');
 
 -- --------------------------------------------------------
 
@@ -474,7 +486,7 @@ INSERT INTO `student` (`student_id`, `firstname`, `middlename`, `lastname`, `pro
 CREATE TABLE `student_credential` (
   `student_logid` int(11) NOT NULL,
   `student_code` varchar(30) NOT NULL,
-  `student_password` varchar(32) NOT NULL,
+  `student_password` text NOT NULL,
   `student_id` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -483,7 +495,9 @@ CREATE TABLE `student_credential` (
 --
 
 INSERT INTO `student_credential` (`student_logid`, `student_code`, `student_password`, `student_id`) VALUES
-(1, 'johno@sec.edu.ph', '20150033', '20150033');
+(1, 'johno@sec.edu.ph', '20150033', '20150033'),
+(2, 'johnoa@gmail.com', '$2y$10$3aQU39PEJMazs4O3SyN08.r63', '112233'),
+(3, 'jla@gmail.com', '$2y$10$qzxVy8SKINjckdP6E7vIw./lAVDjexmwVXe.d8ggEh3YKqb5GCTlO', '223344');
 
 -- --------------------------------------------------------
 
@@ -494,7 +508,7 @@ INSERT INTO `student_credential` (`student_logid`, `student_code`, `student_pass
 CREATE TABLE `web_admin` (
   `admin_id` int(11) NOT NULL,
   `admincode` varchar(50) NOT NULL,
-  `adminpass` varchar(32) NOT NULL
+  `adminpass` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -502,8 +516,8 @@ CREATE TABLE `web_admin` (
 --
 
 INSERT INTO `web_admin` (`admin_id`, `admincode`, `adminpass`) VALUES
-(1, 'g.gulam', '123'),
-(2, 'j.amurao', 'amurao');
+(1, 'g.gulam', '$2a$10$vQ1Iw.Ef5MbD0QJH4mEaZeYGfig66L3bW1oGJDEZ.IVi6G9B5Wyxa'),
+(2, 'j.amurao', '$2y$10$gFRpGixVgibys95jVs4AyOPueRYQjmsDvEiQ7tDL6PLdSogR5OYDK');
 
 --
 -- Indexes for dumped tables
@@ -643,7 +657,7 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `schoolevent`
 --
 ALTER TABLE `schoolevent`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `semester`
@@ -655,13 +669,13 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `student_credential`
 --
 ALTER TABLE `student_credential`
-  MODIFY `student_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `web_admin`

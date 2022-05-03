@@ -173,8 +173,7 @@ if(isset($_POST['btnRegisterClass']))
      ));
    }
  
-  echo "<script>alert(`Student enrolled!`);</script>";
-  header("refresh: 5; url = index.php");
+  echo "<script>alert(`Student enrolled!`);window.location.href='student_info.php';</script>";
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

@@ -235,8 +235,7 @@ if(isset($_POST['btnRegisterClass']))
        ":cid" => $CourseID
       ));
     }
-  echo "<script>alert(`Student enrolled!`);</script>";
-  header("refresh: 5; url = index.php");
+  echo "<script>alert(`Student enrolled!`);window.location.href='individual_assignment.php';</script>";
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();
@@ -258,8 +257,7 @@ if(isset($_POST['btnRegisterClass']))
       ":studid" => $ID
     ]);
 
-    echo "<script>alert(`Student course updated!`);</script>";
-    header("refresh: 3; url = program_assignment.php");
+    echo "<script>alert(`Student course updated!`);window.location.href='program_assignment.php';</script>";
   }catch(Exception $e)
   {
     $e->getMessage();
@@ -271,8 +269,7 @@ if(isset($_POST['btnRegisterClass']))
     $query="DELETE from `enrollmentlist` WHERE enrollmentlist.enrollment_id = :id";
     $statement=$connection->prepare($query);
     $statement->execute([":id"=>$EnrollmentID]);
-    echo "<script>alert(`Student Course assignment deleted!`);</script>";
-    header("refresh: 3; url = program_assignment.php");
+    echo "<script>alert(`Student Course assignment deleted!`);window.location.href='program_assignment.php';</script>";
   }catch(Exception $e)
   {
     $e->getMessage();

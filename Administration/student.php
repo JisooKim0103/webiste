@@ -126,13 +126,11 @@ if(isset($_POST['btnRegisterFaculty']))
         $statement_second = $connection->prepare($query_second);
         $statement_second->execute(array(
           ":uname" => $UserName,
-          ":upass" => $SchoolID,
+          ":upass" => PASSWORD_HASH($SchoolID,PASSWORD_BCRYPT),
           ":uid" => $SchoolID
         ));
     
-        echo "<script>alert(`Student Registered!`);</script>";
-        header("refresh: 5; url = student.php");
-
+        echo "<script>alert(`Student Registered!`);window.location.href='student.php';</script>";
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

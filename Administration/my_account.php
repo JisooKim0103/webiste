@@ -58,11 +58,10 @@ if(isset($_POST['btnUpdate']))
     {
      $statement = $connection->prepare("UPDATE `web_admin` set `adminpass` = :pword where `admincode` = :uname;");
      $statement->execute(array(
-       ":pword" => $NewPassword1,
+       ":pword" => PASSWORD_HASH($NewPassword1, PASSWORD_BCRYPT),
        ":uname" => $_SESSION['logged_admin']
      ));
-     echo "<script>alert(`Password updated!`);</script>";
-     header("refresh:3; url=index.php");
+     echo "<script>alert(`Password updated!`);window.location.href='my_account.php';</script>";
     }else{
      echo "Password does not match!";
     }
