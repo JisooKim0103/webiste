@@ -54,6 +54,7 @@
           <th>Event Name</th>
           <th>Description</th>
           <th>Event Date</th>
+          <th>Event Duration</th>
           </tr>
         </thead>
           <tbody>
@@ -66,6 +67,7 @@
                 echo "<td>".$row['event_name']."</td>";
                 echo "<td>".$row['event_description']."</td>";
                 echo "<td>".$row['event_date']."</td>";
+                echo "<td>".$row['event_end']."</td>";
                 echo "</tr>";
               }
             ?>
@@ -98,7 +100,7 @@ if(isset($_POST['btnAddEvent']))
   try{
    
      
-        $query = "INSERT INTO `schoolevent`(`event_name`,`event_description`,`event_date`) VALUES (:title, :body, :eventdate);";
+        $query = "INSERT INTO `schoolevent`(`event_name`,`event_description`,`event_date`,`datecreated`) VALUES (:title, :body, :eventdate, now());";
         $statement = $connection->prepare($query);
         $statement->execute(array(
             ":title" => $Title,
