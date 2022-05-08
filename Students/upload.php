@@ -140,8 +140,7 @@ if(isset($_POST['btnSubmitAssignment']))
       ":link" => $AssignmentLink
     ));
   
-    echo "<div class='text-center text-info'>Assignment submitted!</div>";
-    header("refresh:3; url=index.php");
+    echo "<script>alert(`Assignment uploaded!`);window.location.href='upload.php';</script>";
   }catch(Exception $e)
   {
     $e->getMessage();

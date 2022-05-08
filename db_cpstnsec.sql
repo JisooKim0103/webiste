@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2022 at 10:58 PM
+-- Generation Time: May 08, 2022 at 02:58 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -42,7 +42,8 @@ CREATE TABLE `assignment` (
 --
 
 INSERT INTO `assignment` (`assignment_id`, `title`, `description`, `faculty_id`, `class_id`, `submission_date`, `date_created`) VALUES
-(1, 'Hello, World!', 'Create a simple python program with hello world as output', 1, 55, '2022-05-06 00:00:00', '2022-04-29 07:55:22');
+(1, 'Hello, World!', 'Create a simple python program with hello world as output', 1, 55, '2022-05-06 00:00:00', '2022-04-29 07:55:22'),
+(2, 'Type writing test', 'Write a 100 character programming code using python', 2, 54, '2022-05-20 00:00:00', '2022-05-08 06:47:05');
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,8 @@ CREATE TABLE `assignment_submission` (
 --
 
 INSERT INTO `assignment_submission` (`submission_id`, `assignment_id`, `student_id`, `submission_link`, `submission_date`, `feedback`) VALUES
-(1, 1, 1, 'https://www.google.com', '2022-04-29 08:17:02', 'Good submission, early bird!');
+(1, 1, 1, 'https://www.google.com', '2022-04-29 08:17:02', 'Good submission, early bird!'),
+(2, 2, 1, 'https://www.google.com', '2022-05-08 07:38:03', 'I loved the approach you done here! Nice!!');
 
 -- --------------------------------------------------------
 
@@ -311,7 +313,8 @@ CREATE TABLE `course_handled` (
 --
 
 INSERT INTO `course_handled` (`course_handling_id`, `course_id`, `faculty_id`, `date_create`) VALUES
-(1, 55, 1, '2022-04-29 07:33:59');
+(1, 55, 1, '2022-04-29 07:33:59'),
+(2, 54, 2, '2022-05-08 06:33:22');
 
 -- --------------------------------------------------------
 
@@ -363,7 +366,8 @@ CREATE TABLE `faculty` (
 --
 
 INSERT INTO `faculty` (`faculty_id`, `firstname`, `middlename`, `lastname`, `department`, `program_id`, `date_created`) VALUES
-(1, 'John', 'L', 'Laurinaitis', 2, 2, '2022-04-29 07:27:13');
+(1, 'John', 'L', 'Laurinaitis', 2, 2, '2022-04-29 07:27:13'),
+(2, 'JaVale', 'Lindy', 'McGee', 2, 2, '2022-05-08 06:29:07');
 
 -- --------------------------------------------------------
 
@@ -383,7 +387,8 @@ CREATE TABLE `faculty_credential` (
 --
 
 INSERT INTO `faculty_credential` (`faculty_logid`, `faculty_code`, `faculty_password`, `faculty_id`) VALUES
-(1, 'jlaurinaitis@sec.edu.ph', '123456', '123456');
+(1, 'jlaurinaitis@sec.edu.ph', '$2y$10$MiZN8W221x7ikeqkqxx1ieupq8qFDNXEkP9sQcN720XKQ6KjcRnFu', '123456'),
+(2, 'jvlmcgee@sec.edu.ph', '$2y$10$88DH4OrDw4hj14ZvJNwVOO4m1Aj2E8A4hrF9vDPT.iMHLEqB2fSRK', '321654');
 
 -- --------------------------------------------------------
 
@@ -420,18 +425,25 @@ CREATE TABLE `schoolevent` (
   `event_id` int(11) NOT NULL,
   `event_name` varchar(100) NOT NULL,
   `event_description` varchar(255) NOT NULL,
-  `event_date` date NOT NULL
+  `event_start` date NOT NULL,
+  `event_end` date DEFAULT NULL,
+  `datecreated` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `schoolevent`
 --
 
-INSERT INTO `schoolevent` (`event_id`, `event_name`, `event_description`, `event_date`) VALUES
-(1, 'suntukan', 'tayo        ', '2022-05-04'),
-(2, '321', '        321', '2022-05-04'),
-(3, 'oaky', 'okasdasd        ', '2022-05-04'),
-(4, 'd', '        d', '2022-05-05');
+INSERT INTO `schoolevent` (`event_id`, `event_name`, `event_description`, `event_start`, `event_end`, `datecreated`) VALUES
+(1, 'suntukan', 'tayo        ', '2022-05-04', NULL, NULL),
+(2, '321', '        321', '2022-05-04', NULL, NULL),
+(3, 'oaky', 'okasdasd        ', '2022-05-04', NULL, NULL),
+(4, 'd', '        d', '2022-05-05', NULL, NULL),
+(5, 'event rally', 'punta na now, na!        ', '2022-05-13', NULL, '2022-05-08'),
+(6, 'Event Test', 'Testing lang        ', '2022-05-19', '2022-05-27', '2022-05-08'),
+(7, 'Leni rally', 'Doon sa may Pasay Blvd        ', '2022-05-09', '2022-05-10', '2022-05-08'),
+(8, '123', '        ', '2022-05-08', '2022-05-08', '2022-05-08'),
+(9, '123', '        ', '2022-05-08', '2022-05-08', '2022-05-08');
 
 -- --------------------------------------------------------
 
@@ -495,7 +507,7 @@ CREATE TABLE `student_credential` (
 --
 
 INSERT INTO `student_credential` (`student_logid`, `student_code`, `student_password`, `student_id`) VALUES
-(1, 'johno@sec.edu.ph', '20150033', '20150033'),
+(1, 'johno@sec.edu.ph', '$2y$10$m9FCCCQFOgcNxEgO9rSZnu5rvgIMvFqzr3ZatDjpmSIxr8Yx5h9ra', '20150033'),
 (2, 'johnoa@gmail.com', '$2y$10$3aQU39PEJMazs4O3SyN08.r63', '112233'),
 (3, 'jla@gmail.com', '$2y$10$qzxVy8SKINjckdP6E7vIw./lAVDjexmwVXe.d8ggEh3YKqb5GCTlO', '223344');
 
@@ -609,13 +621,13 @@ ALTER TABLE `web_admin`
 -- AUTO_INCREMENT for table `assignment`
 --
 ALTER TABLE `assignment`
-  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `assignment_submission`
 --
 ALTER TABLE `assignment_submission`
-  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -627,7 +639,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `course_handled`
 --
 ALTER TABLE `course_handled`
-  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `course_handling_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `enrollmentlist`
@@ -639,13 +651,13 @@ ALTER TABLE `enrollmentlist`
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-  MODIFY `faculty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `faculty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `faculty_credential`
 --
 ALTER TABLE `faculty_credential`
-  MODIFY `faculty_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `faculty_logid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -657,7 +669,7 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `schoolevent`
 --
 ALTER TABLE `schoolevent`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `semester`

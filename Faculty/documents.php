@@ -36,35 +36,7 @@
   <div class="container-fluid">
   <h2>Student(s) Submission</h2>
   <div class="row">
-    <div class="col-md-4">
-      <form method="post">
-      <label>Select Submission</label>
-      <div class="form-group">
-        <select name="cmbAssignmentID" class="form-control" style="width: 75%">
-          <option value="">Select Submission</option>
-          <?php
-            $query = "SELECT assignment_submission.submission_id, course.course_code, student.firstname, student.lastname, assignment_submission.submission_date FROM `assignment_submission`
-            inner join `student` on assignment_submission.student_id = student.student_id
-            inner join `assignment` on assignment_submission.assignment_id = assignment.assignment_id
-            inner join `course` on assignment.class_id = course.course_id;
-            ";
-            $statement = $connection->prepare($query);
-            $statement->execute();
-            foreach($statement as $row)
-            {
-              echo "<option value='".$row['submission_id']."'><b>".$row['course_code']."</b>, ".$row['lastname'].", ".$row['firstname']." on ".$row['submission_date']."</option>";
-            }
-          ?>
-        </select>
-      </div>
-      <label>Feedback/Comments</label>
-      <div class="form-group">
-        <input type="text" name="txtFeedback" class="form-control" style="width: 75%;" placeholder="Write feedback.."/> 
-      </div>
-      <button type="submit" class="btn btn-info" name="btnWriteFeedback" style="width: 75%;">&nbsp;Write Feedback</button>
-      </form>
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-12">
     <table id="table" class="table"> 
     <thead>
         <tr>
@@ -78,7 +50,7 @@
     </thead>
     <tbody>
         <?php
-          $query = "SELECT student.firstname, student.lastname, assignment_submission.submission_link,
+          $query = "SELECT assignment_submission.submission_id, student.firstname, student.lastname, assignment_submission.submission_link,
           assignment_submission.submission_date, course.course_code, program.program_code, assignment_submission.feedback
           from `student`
           inner join `assignment_submission` on assignment_submission.student_id = student.student_id
@@ -92,7 +64,18 @@
 
           foreach($statement as $row)
           {
-            echo "<tr>
+            if(empty($row['feedback']))
+            {
+              echo "<tr>
+              <td>".$row['submission_date']."</td>
+              <td>".$row['firstname']." ".$row['lastname']."</td>
+              <td>".$row['course_code']."</td>
+              <td>".$row['program_code']."</td>
+              <td><a href='".$row['submission_link']."'>".$row['submission_link']."</a></td>
+              <td><a href='write_feedback.php?submission_id=".$row['submission_id']."'>Write Feedback</a></td>
+            </tr>";
+            }else{
+              echo "<tr>
               <td>".$row['submission_date']."</td>
               <td>".$row['firstname']." ".$row['lastname']."</td>
               <td>".$row['course_code']."</td>
@@ -100,6 +83,7 @@
               <td><a href='".$row['submission_link']."'>".$row['submission_link']."</a></td>
               <td>".$row['feedback']."</td>
             </tr>";
+            }
           }
         ?>
     </tbody>

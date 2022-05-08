@@ -36,7 +36,7 @@
    
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Teacher</h2>
-        <input type="text" name="SchoolID" class="form-control" placeholder="School ID" style="width:60%;" required/> </br>
+        <input type="text" name="SchoolID" class="form-control" placeholder="Employee ID" style="width:60%;" required/> </br>
         <input type="text" name="FirstName" class="form-control" placeholder="First Name" style="width:60%;" required/> </br>
         <input type="text" name="MiddleName" class="form-control" placeholder="Middle Name" style="width:60%;"/> </br>
         <input type="text" name="LastName" class="form-control" placeholder="Last Name" style="width:60%;" required/> </br>

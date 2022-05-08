@@ -96,12 +96,13 @@
           <thead>
             <tr>
               <th>Event</th>
-              <th>Date</th>
+              <th>Event Start</th>
+              <th>Event End</th>
             </tr>
           </thead>
           <tbody>
             <?php
-                $query = "SELECT * from schoolevent where event_date >= curdate();";
+                $query = "SELECT schoolevent.event_name, schoolevent.event_start, schoolevent.event_end from schoolevent where event_end >= curdate();";
                 $statement = $connection->prepare($query);
                 $statement->execute();
 
@@ -109,7 +110,8 @@
                 {
                   echo "<tr>
                       <td>".$row['event_name']."</td>
-                      <td>".$row['event_date']."</td>
+                      <td>".$row['event_start']."</td>
+                      <td>".$row['event_end']."</td>
                   </tr>";
                 }
             ?>

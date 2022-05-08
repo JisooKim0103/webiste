@@ -6,7 +6,7 @@
 ?>
 <nav class="navbar navbar-expand-lg bg-light static-top">
     <div class="container">
-      <a class="navbar-brand text-danger" href="index.php" >
+      <a class="navbar-brand text-info" href="index.php" >
       <img src = "http://southeastern.com.ph/img/logo.png" height="50"/>
       <b>SEC Faculty<br/>Logged as: <?php echo $_SESSION['logged_faculty'];?></b>
       </a>

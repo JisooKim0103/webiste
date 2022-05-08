@@ -22,6 +22,7 @@
   include('session.php');
   include('header.php');
   include("../db/database.php");
+  $now = date('Y-m-d');
   ?>
 
   <!-- Page Content -->
@@ -37,9 +38,9 @@
       <form method="POST" class="form-group" enctype="multipart/form-data">
         <h2>Add Event</h2>
         <input type="text" name="EventName" class="form-control" placeholder="Event Name" style="width:75%;" required/> </br>
-        <textarea name="EventDescription" class="form-control" style="width:75%;" placeholder="Type event description here" required>
-        </textarea><br/>
-        <input type="date" name="EventDate" style="width:75%;" class="form-control" required/><br/>
+        <textarea name="EventDescription" class="form-control" style="width:75%;" rows=5 cols=50 required></textarea><br/>
+        <input type="date" name="EventStart" style="width:75%;" min="<?php echo $now;?>" class="form-control" required/><br/>
+        <input type="date" name="EventEnd" style="width:75%;" min="<?php echo $now;?>" class="form-control" required/><br/>
         <button type="submit" name="btnAddEvent" style="width:75%;" class="btn btn-info">
         <i class="fas fa-calendar-plus"></i>&nbsp;Add Event
         </button>
@@ -53,8 +54,8 @@
         <tr>
           <th>Event Name</th>
           <th>Description</th>
-          <th>Event Date</th>
-          <th>Event Duration</th>
+          <th>Event Start</th>
+          <th>Event End</th>
           </tr>
         </thead>
           <tbody>
@@ -66,7 +67,7 @@
                 echo "<tr>";
                 echo "<td>".$row['event_name']."</td>";
                 echo "<td>".$row['event_description']."</td>";
-                echo "<td>".$row['event_date']."</td>";
+                echo "<td>".$row['event_start']."</td>";
                 echo "<td>".$row['event_end']."</td>";
                 echo "</tr>";
               }
@@ -95,17 +96,19 @@ if(isset($_POST['btnAddEvent']))
 
     $Title = $_POST['EventName'];
     $Description = $_POST['EventDescription'];
-    $Date = $_POST['EventDate'];
+    $DateStart = $_POST['EventStart'];
+    $DateEnd = $_POST['EventEnd'];
 
   try{
    
      
-        $query = "INSERT INTO `schoolevent`(`event_name`,`event_description`,`event_date`,`datecreated`) VALUES (:title, :body, :eventdate, now());";
+        $query = "INSERT INTO `schoolevent`(`event_name`,`event_description`,`event_start`,`event_end`,`datecreated`) VALUES (:title, :body, :eventstart, :eventend, now());";
         $statement = $connection->prepare($query);
         $statement->execute(array(
             ":title" => $Title,
             ":body" => $Description,
-            ":eventdate" => $Date
+            ":eventstart" => $DateStart,
+            ":eventend" => $DateEnd
         ));
 
         echo "<script>alert(`Event Added!`); window.location.href='events.php';</script>";

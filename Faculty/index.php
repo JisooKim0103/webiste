@@ -37,6 +37,28 @@
 
   <div class = "text-center">
     <img src = "http://southeastern.com.ph/img/logo.png" style="max-width:100%" height="100px" width="100px" class = "img-fluid rounded"/>
+    <h1>
+      <?php
+        $query = "SELECT count(assignment_submission.submission_id) as `assignment_count` from assignment_submission 
+        INNER JOIN `assignment` ON assignment.assignment_id = assignment_submission.assignment_id 
+        WHERE assignment_submission.feedback IS NULL and assignment.faculty_id = :id;";
+        $statement = $connection->prepare($query);
+        $statement->execute([":id"=>$ID]);
+        
+        foreach($statement as $row)
+        {
+          if($row['assignment_count'] <= 0)
+          {
+            echo "<div class='text-center'><h3 class='text-info'>".$row['assignment_count']." Assignment(s) to check</h3></div>";
+          }else{
+            echo "<div class='text-center'><h3 class='text-danger'>".$row['assignment_count']." Assignment(s) to check</h3></div>";
+          }
+
+        }
+        
+      ?>
+
+    </h1>
   </div>
   <div class="row">
     
@@ -76,12 +98,13 @@
         <thead>
           <tr>
             <th>Event</th>
-            <th>Date</th>
+            <th>Event Start</th>
+            <th>Event End</th>
           </tr>
         </thead>
         <tbody>
           <?php
-              $query = "SELECT * from schoolevent where event_date >= curdate();";
+              $query = "SELECT schoolevent.event_name, schoolevent.event_start, schoolevent.event_end from schoolevent where schoolevent.event_end >= curdate();";
               $statement = $connection->prepare($query);
               $statement->execute();
 
@@ -89,7 +112,8 @@
               {
                 echo "<tr>
                     <td>".$row['event_name']."</td>
-                    <td>".$row['event_date']."</td>
+                    <td>".$row['event_start']."</td>
+                    <td>".$row['event_end']."</td>
                 </tr>";
               }
           ?>

@@ -19,7 +19,7 @@ $connection = new PDO("mysql:host=$ServerName;dbname=$Database",$Username,$Passw
 // set the PDO error mode to exception
 $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-echo "<div class ='text-center'><h4 class='text-success'>Connection:&nbsp;<i class='fas fa-signal'></i>&nbsp;Stable</h4></div>";
+echo "<div class ='text-left'><h4 class='text-success'>Connection:&nbsp;<i class='fas fa-signal'></i>&nbsp;Stable</h4></div>";
 
 }catch(PDOException $e)
 {

@@ -201,8 +201,7 @@ if(isset($_POST['btnRegisterClass']))
     $statement = $connection->prepare($sqlQuery);
     $statement->execute([":cid" => $Course, ":fid" => $Faculty]);
 
-    echo "<script>alert(`Faculty assigned!`);</script>";
-    header("refresh: 5; url = index.php");
+    echo "<script>alert(`Faculty assigned!`); window.location.href='faculty_assignment.php';</script>";
   }catch(PDOException $e)
   {
   echo "Error: ".$e->getMessage();

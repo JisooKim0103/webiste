@@ -58,11 +58,10 @@ if(isset($_POST['btnUpdate']))
     {
      $statement = $connection->prepare("UPDATE `student_credential` set `student_password` = :pword where `student_code` = :uname;");
      $statement->execute(array(
-       ":pword" => $NewPassword1,
+       ":pword" => PASSWORD_HASH($NewPassword1, PASSWORD_BCRYPT),
        ":uname" => $_SESSION['logged_student']
      ));
-     echo "Password updated";
-     header("refresh:3; url=index.php");
+     echo "<script>alert(`Password updated!);window.location.href='my_account.php';</script>";
     }else{
      echo "Password does not match!";
     }

@@ -25,7 +25,7 @@ include("../db/database.php");
       <div class="row">
        <div class = "col-md-4"></div>
        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-         <h1 class="text-danger text-center"><img src = "http://southeastern.com.ph/img/logo.png" height="50"/>Administration Portal</h1><hr/>
+         <h1 class="text-info text-center"><img src = "http://southeastern.com.ph/img/logo.png" height="50"/>Administration Portal</h1><hr/>
          <form method="POST" class="form-group">
          <table>
          <tr>
@@ -33,11 +33,11 @@ include("../db/database.php");
             <th></th>
          </tr>
             <tr>
-               <td>Admin ID</td>
+               <td class="text-info font-weight-bold">Admin ID</td>
                <td><input type="text" name="loginID" class="form-control mb-5 mt-5 ml-5" required="true"/></td>
             </tr>  
             <tr>
-               <td><label>Password</label></td>
+               <td><label class="text-info font-weight-bold">Password</label></td>
                <td><input type="password" name="loginPassword" class="form-control ml-5" required="true"/></td>
             </tr>
             <tr>

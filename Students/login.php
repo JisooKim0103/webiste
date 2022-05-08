@@ -25,7 +25,7 @@ include("../db/database.php");
       <div class="row">
        <div class = "col-md-4"></div>
        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-         <h1 class="text-danger text-center"><img src = "http://southeastern.com.ph/img/logo.png" height="50"/>Student Portal</h1><hr/>
+         <h1 class="text-info text-center"><img src = "http://southeastern.com.ph/img/logo.png" height="50"/>Student Portal</h1><hr/>
          <form method="POST" class="form-group">
          <table>
          <tr>
@@ -34,15 +34,15 @@ include("../db/database.php");
          </tr>
             
             <tr>
-               <td>Student Email</td>
+               <td class="text-info font-weight-bold">Student Email</td>
                <td><input type="text" name="loginID" class="form-control mb-5 mt-5 ml-5" required="true"/></td>
             </tr>  
             <tr>
-               <td><label>Password</label></td>
+               <td><label class="text-info font-weight-bold">Password</label></td>
                <td><input type="password" name="loginPassword" class="form-control ml-5" required="true"/></td>
             </tr>
             <tr>
-               <td>Student ID</td>
+               <td class="text-info font-weight-bold">Student ID</td>
                <td><input type="password" name="studentID" class="form-control mb-5 mt-5 ml-5" required="true"/></td>
             </tr> 
             <tr>

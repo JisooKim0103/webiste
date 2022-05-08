@@ -64,6 +64,7 @@ if(empty($_GET))
       <button type="button" class="btn btn-outline-primary" onclick="flipPanel()">Update Account</button>
     </div>
     <br/>
+     <!-- Start of flipPanel coverage -->
     <div id="updatePanel">  
     <input type="password" class="form-control" style="width:100%;" name="OriginalPassword" required placeholder="Enter Original Password"/><br/>
       <input type="password" class="form-control" name="Password1" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
@@ -71,9 +72,14 @@ if(empty($_GET))
       <input type="password" class="form-control" name="Password2" pattern = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
               title = "Password must be at least 8 characters including at least 1 of the following: Upper Case, Lower Case, Number, and Special Character" style="width:100%;" required placeholder='Re-type new Password'/><br/>
       <button name="btnUpdate" type="submit" class="btn btn-info" style="width:100%;"><i class="fas fa-pen-alt"></i>&nbsp;Update Info</button>
-      </div>  
+      
     </form>
-
+     <!-- Reset Password -->
+     <form method="POST" class="mt-2">
+       <button type="submit" name="btnResetPassword" class="btn btn-info" style="width:100%;"><i class="fas fa-recycle"></i>&nbsp;Reset Password</button>
+     </form>
+     </div> 
+     <!-- End of flipPanel coverage -->
     </div>
     <div class="col-md-8">
       <h1>Courses Handled</h1>
@@ -168,6 +174,27 @@ if(isset($_POST['btnUpdate']))
     }else{
     echo "<h3 class='text-danger'>Password does not match!</h2>";
     }
+  }
+  
+}elseif(isset($_POST['btnResetPassword']))
+{
+  $UserName = $_GET['userid'];
+
+  try{
+    $query = "SELECT faculty_credential.faculty_id from `faculty_credential` WHERE faculty_credential.faculty_logid = :id LIMIT 1;";
+    $statement = $connection->prepare($query);
+    $statement->execute([":id" => $UserName]);
+  
+    foreach($statement as $row)
+    {
+      $updatePassQuery = "UPDATE `faculty_credential` SET faculty_password = :facpassword WHERE faculty_logid = :id;";
+      $updatePassQueryStatement = $connection->prepare($updatePassQuery);
+      $updatePassQueryStatement->execute([":facpassword" => PASSWORD_HASH($row['faculty_id'], PASSWORD_BCRYPT), ":id" => $UserName]);
+    }
+    echo "<script>alert('Password has been reset!');window.location.href='faculty.php';</script>";
+  }catch(Exception $e)
+  {
+    $e->getMessage();
   }
   
 }

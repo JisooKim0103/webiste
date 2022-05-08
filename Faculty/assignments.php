@@ -183,8 +183,7 @@ if(isset($_POST['btnAddAssignment']))
          ":submissiondate" => $SubmissionDate,
          ":id" => $ID
      ));
-     echo "<div id='text-center'><label class='text-success'>Assignment Added!</label></div>";
-     header("refresh:3; url=index.php");
+     echo "<script>alert(`Assignment added!`);window.location.href='index.php';</script>";
   }catch(Exception $e)
   {
     $e->getMessage();
@@ -204,9 +203,7 @@ if(isset($_POST['btnAddAssignment']))
       ":assignid" => $AssigmentID
     ]);
 
-    echo "<script>alert(`Assignment updated!`);</script>";
-    header("refresh: 3; url = assignments.php");
-
+    echo "<script>alert(`Assignment updated!`);window.location.href='assignments.php';</script>";
   }catch(Exception $e)
   {
     $e->getMessage();
