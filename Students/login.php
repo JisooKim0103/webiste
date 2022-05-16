@@ -75,10 +75,7 @@ if(isset($_POST['btnLogin']))
          ":uname" => $LoginID,
          ":id" => $StudentID
       ));
-   
-      $result = $statement->fetchColumn();
-   
-      
+
       foreach($statement as $row)
       {
          if(password_verify($LoginPassword, $row['student_password'])){
