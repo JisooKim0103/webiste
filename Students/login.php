@@ -68,24 +68,26 @@ if(isset($_POST['btnLogin']))
       $LoginID = $_POST['loginID'];
       $LoginPassword = $_POST['loginPassword'];
       $StudentID = $_POST['studentID'];
-      $query = "SELECT COUNT(student_code) from student_credential where student_code = :uname and student_password = :pword and student_id=:id;";
+      $query = "SELECT `student_password` from student_credential where student_code = :uname AND student_id=:id;";
       $statement = $connection->prepare($query);
    
       $statement->execute(array(
          ":uname" => $LoginID,
-         ":pword" => $LoginPassword,
          ":id" => $StudentID
       ));
    
       $result = $statement->fetchColumn();
    
-      if($result==1)
+      
+      foreach($statement as $row)
       {
-         $_SESSION['logged_student'] = $LoginID;
-         echo "<center class='text-success'>Login Sucess! Redirecting in few seconds..</center>";
-         header("refresh:3; url = index.php");
-      }else{
-         echo "<center class = 'text-danger text-center'>Username or Password not found!</center>";
+         if(password_verify($LoginPassword, $row['student_password'])){
+            $_SESSION['logged_student'] = $LoginID;
+            echo "<center class='text-success'>Login Sucess! Redirecting in few seconds..</center>";
+            header("refresh:3; url = index.php");
+         }else{
+            echo "<center class = 'text-danger text-center'>Username or Password not found!</center>";
+         }
       }
    }catch(Exception $e)
    {
